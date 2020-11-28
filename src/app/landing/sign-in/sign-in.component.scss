@@ -1,0 +1,25 @@
+.my-svg{
+    width: 65%;
+  }
+  .fb {
+    background-color: #3B5998;
+    
+    fa-icon {
+      color: white;
+        }
+    &:hover {
+      box-shadow: 0px 0px 21px -8px rgba(52,168,83,1);
+    }
+  }
+  
+  .google{
+    border: solid 1px red;
+    &:hover {
+      box-shadow: 0px 0px 21px -8px rgba(52,168,83,1);
+    }
+    fa-icon {
+        color:#34a853;
+    }
+    
+}
+  

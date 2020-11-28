@@ -1,0 +1,231 @@
+<div class="container mt-5 mb-5 p-5 mr-auto">
+  <div class="row align-items-center">
+    <div class="col-md-4">
+      <div class="profile-img">
+        <img src="{{ client?.photoURL }}" alt="" />
+        <div class="file btn btn-lg btn-primary">
+          Change Photo
+          <input (change)="changePhoto($event)" type="file" name="file" />
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12  d-flex justify-content-center">
+      <div class="profile-head">
+        <h5 class="font-weight-bold">{{ client?.name }}</h5>
+        <h6 class="text-primary">Looking For A Doctor</h6>
+        <p class="text-secondary font-weight-bold">
+          AGE : <span>{{ client?.age }}</span>
+        </p>
+      </div>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-12 d-flex justify-content-center">
+      <button
+        type="button"
+        *ngIf="!canEdit"
+        (click)="editToggle()"
+        class="profile-edit-btn btn btn-primary"
+      >
+        <fa-icon [icon]="faEdit" class="mr-2"></fa-icon> Edit
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 d-flex justify-content-center">
+      <div class="">
+        <h5 *ngIf="client?.diseases" class="font-weight-bold mt-2">
+          Past diseases
+        </h5>
+        <h5 *ngIf="!client?.diseases" class="font-weight-bold mt-2">
+          No Past diseases
+        </h5>
+        <div *ngFor="let disease of client?.diseases">
+          <p>{{ disease }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-8 mt-2 form-group text-center">
+      <form [formGroup]="EditInfoForm" (ngSubmit)="onSubmit()">
+        <div class="row form-inline mb-5">
+          <div class="col-lg-2 col-md-12 col-sm-12 text-center">
+            <label class="font-weight-bold">Name</label>
+          </div>
+
+          <div
+            *ngIf="!canEdit"
+            class="col-lg-6 col-md-12 col-sm-12 text-center"
+          >
+            <p>{{ client?.name }}</p>
+            <fa-icon [icon]="faTimes" *ngIf="!client?.name"></fa-icon>
+          </div>
+
+          <div
+            *ngIf="canEdit"
+            class="col-xs-3 m-1 col-lg-6 col-md-12 col-sm-12 text-center"
+          >
+            <input
+              formControlName="name"
+              type="text"
+              class="form-control input-sm"
+            />
+            <div *ngIf="h.name.errors">
+              <div *ngIf="h.name.errors.required" class="text-danger">
+                name is required
+              </div>
+              <div *ngIf="h.name.errors.minlength" class="text-danger">
+                name too short
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row form-inline mb-5">
+          <div class="col-lg-2 col-md-12 col-sm-12 text-center">
+            <label class="font-weight-bold">Email</label>
+          </div>
+
+          <div
+            *ngIf="!canEdit"
+            class="col-lg-6 col-md-12 col-sm-12 text-center"
+          >
+            <p *ngIf="client?.email">{{ client?.email }}</p>
+            <fa-icon [icon]="faTimes" *ngIf="!client?.email"></fa-icon>
+          </div>
+
+          <div
+            *ngIf="canEdit"
+            class="col-xs-3 m-1 col-lg-6 col-md-12 col-sm-12 text-center"
+          >
+            <input
+              formControlName="email"
+              type="email"
+              class="form-control input-sm"
+            />
+            <div *ngIf="h.email.errors">
+              <div *ngIf="h.email.errors.required" class="text-danger">
+                email is required
+              </div>
+              <div *ngIf="h.email.errors.email" class="text-danger">
+                not a valid email
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row form-inline mb-5">
+          <div class="col-lg-2 col-md-12 col-sm-12 text-center">
+            <label class="font-weight-bold">gender</label>
+          </div>
+
+          <div
+            *ngIf="!canEdit"
+            class="col-lg-6 col-md-12 col-sm-12 text-center"
+          >
+            <p *ngIf="client?.gender">{{ client?.gender }}</p>
+            <fa-icon [icon]="faTimes" *ngIf="!client?.gender"></fa-icon>
+          </div>
+
+          <div
+            *ngIf="canEdit"
+            class="col-xs-3 m-1 col-lg-6 col-md-12 col-sm-12 text-center form-check"
+          >
+            <input
+              formControlName="gender"
+              class="form-check-input"
+              type="radio"
+              id="exampleRadios1"
+              value="male"
+            />
+            <label class="form-check-label ml-1 mr-5" for="exampleRadios1">
+              MALE
+            </label>
+            <input
+              formControlName="gender"
+              class="form-check-input"
+              type="radio"
+              id="exampleRadios1"
+              value="female"
+            />
+            <label class="form-check-label ml-1 mr-2" for="exampleRadios1">
+              FEMALE
+            </label>
+            
+          </div>
+        </div>
+
+        <div class="row form-inline mb-5">
+          <div class="col-lg-2 col-md-12 col-sm-12 text-center">
+            <label class="font-weight-bold">Phone</label>
+          </div>
+
+          <div
+            *ngIf="!canEdit"
+            class="col-lg-6 col-md-12 col-sm-12 text-center"
+          >
+            <p *ngIf="client?.phoneNumber">{{ client?.phoneNumber }}</p>
+            <fa-icon [icon]="faTimes" *ngIf="!client?.phoneNumber"></fa-icon>
+          </div>
+          <div
+            *ngIf="canEdit"
+            class="col-xs-3 m-1 col-lg-6 col-md-12 col-sm-12 text-center"
+          >
+            <input
+              formControlName="phoneNumber"
+              type="text"
+              class="form-control input-sm"
+            />
+            <div *ngIf="h.phoneNumber.errors">
+              <div *ngIf="h.phoneNumber.errors.required" class="text-danger">
+                phone is required
+              </div>
+              <div *ngIf="h.phoneNumber.errors.minlength" class="text-danger">
+                phone number too short
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row form-inline mb-5">
+          <div class="col-lg-2 col-md-12 col-sm-12 text-center">
+            <label class="font-weight-bold">Birth Date</label>
+          </div>
+          <div
+            *ngIf="!canEdit"
+            class="col-lg-6 col-md-12 col-sm-12 text-center"
+          >
+            <p *ngIf="client?.age">{{ client?.age }}</p>
+            <fa-icon [icon]="faTimes" *ngIf="!client?.age"></fa-icon>
+          </div>
+          <div
+            *ngIf="canEdit"
+            class="col-xs-3 m-1 col-lg-6 col-md-12 col-sm-12 text-center"
+          >
+            <input
+              formControlName="age"
+              type="text"
+              placeholder="Datepicker"
+              class="form-control"
+              bsDatepicker
+              [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+            />
+            <div *ngIf="h.age.errors">
+              <div *ngIf="h.age.errors.required" class="text-danger">
+                birth Date is required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-5">
+          <div class="col-lg-6 col-md-12 col-sm-12 text-center">
+            <button
+              type="submit"
+              *ngIf="canEdit"
+              class="profile-edit-btn btn btn-primary"
+            >
+              <fa-icon [icon]="faCheck" class="mr-2"></fa-icon> Confirm
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

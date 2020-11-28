@@ -1,0 +1,18 @@
+.my-svg{
+    width: 65%;
+  }
+
+  #heart{
+    animation: heart 2s ease-in-out infinite alternate;
+    transform-origin: top;
+    transform-box: fill-box;
+  }
+
+  @keyframes heart{
+    from{
+        transform: translateY(0%);
+    }
+    to{
+      transform: translateY(20%);
+    }
+  }

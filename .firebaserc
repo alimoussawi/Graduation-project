@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "graduation-project-9eae7": {
+      "hosting": {
+        "graduation-project": [
+          "graduation-project-9eae7"
+        ]
+      }
+    }
+  }
+}
