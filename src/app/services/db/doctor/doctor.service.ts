@@ -8,6 +8,7 @@ import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import * as geofirestore from 'geofirestore';
 import { UserService } from '../user/user.service';
+import { AddressInfo } from '../../AddressInfo';
 
 firebase.default.initializeApp(environment.firebaseConfig);
 const firestore = firebase.default.firestore();
@@ -60,26 +61,40 @@ export class DoctorService {
       return doctorRef.valueChanges();
     }*/
   }
-  updateDoctorData(doctorId:string,data:Doctor,profileURL,idURL,licenseURL,address,latitude,longitude){
+  updateDoctorData(doctorId:string,data:Doctor,profileURL:string,idURL:string,licenseURL:string,code,country,address,city,latitude,longitude){
     const point = new firebase.default.firestore.GeoPoint(latitude, longitude);
-    const { name,email,age,phoneNumber,gender,speciality,bio} = data;
+    const { name,email,birthDate,phoneNumber,gender,speciality,bio,price} = data;
+    const addressInformation:AddressInfo={
+      location:point,
+      countryCode:code,
+      country:country,
+      address:address,
+      city:city,
+    }
     const doctorRef:AngularFirestoreDocument<Doctor>=this.afs.doc(`unverifiedDoctors/${doctorId}`);
-      const doctorInfo={
-      id:doctorId,
+      const doctorInfo:Doctor={
       name:name,
       email:email,
-      age:age,
+      birthDate:Date.parse(birthDate),
       phoneNumber:phoneNumber,
       gender:gender,
       speciality:speciality,
       bio:bio,
-      profileURL:profileURL,
-      idURL:idURL,
-      licenseURL:licenseURL,
-      address:address,
-      location:point
+      photoURL:profileURL,
+      idCardUrl:idURL,
+      medicalLicenseUrl:licenseURL,
+      addressInfo:addressInformation,
+      price:price,
+      status:'IN_PROGRESS'
     }
-    return doctorRef.set(doctorInfo,{merge:true});
+    return doctorRef.update(doctorInfo);
   }
 
+  getDoctorsBySpeciality(speciality:string,orderBy?:any){
+      const doctorsRef:AngularFirestoreCollection<Doctor>=this.afs.collection(`aa`,ref=>ref.limit(5).orderBy('price'));
+
+      alert(speciality);
+  
+        return doctorsRef.valueChanges();
+  }
 }

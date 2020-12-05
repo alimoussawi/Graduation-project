@@ -48,11 +48,11 @@ export class MainProfilePatientComponent implements OnInit {
   }
   setDefaultValues() {
     let defaultClient = {
-      name: this.client?.name,
-      email: this.client?.email,
+      name: this.client?.name || "",
+      email: this.client?.email || "",
       gender: this.client?.gender || "",
       phoneNumber: this.client?.phoneNumber || "",
-      age: this.client?.age || "",
+      age: new Date(this.client?.age).toLocaleDateString() || "",
     }
     this.EditInfoForm.setValue(defaultClient);
   }

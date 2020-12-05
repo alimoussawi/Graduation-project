@@ -19,7 +19,7 @@ import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,7 +34,7 @@ import { AgmCoreModule } from '@agm/core';
     AngularFireStorageModule,
     ToastrModule.forRoot(),
     MDBBootstrapModule.forRoot(),
-    AgmCoreModule.forRoot({apiKey:environment.googleMapsKey,libraries: ['places']}),
+    AgmCoreModule.forRoot({apiKey:environment.googleMapsKey,libraries: ['places'],language:'en'}),
   ],
   providers: [],
   bootstrap: [AppComponent]

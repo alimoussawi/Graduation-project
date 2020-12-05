@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { CanActivate, CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router, CanLoad, Route, UrlSegment } from '@angular/router';
 import { Observable,of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { first, switchMap, take } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -18,11 +18,8 @@ export class PatientGuard implements CanActivate, CanActivateChild,CanLoad {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return new Promise((resolve,reject)=>{
       this.authService.user.subscribe(user=>{
-        if(!user || !user.role){
-          this.router.navigate(['/login']);
-          resolve(false);
-        }
-        else if (user && user.role==='DOCTOR'){
+       
+         if (user && user.role==='DOCTOR'){
           this.router.navigate(['/doctor']);
           resolve(false);
         }
@@ -62,16 +59,19 @@ export class PatientGuard implements CanActivate, CanActivateChild,CanLoad {
             return of(null);
           }
         })
-      ).subscribe(user=>{
-        if(!user || !user.name || !user.email || !user.age || !user.phoneNumber){
-            this.router.navigate(['/patient']);
-            this.toastr.error("complete your profile first");
-            resolve(false);
+      ).pipe(first(client=>client!=null)).subscribe(client=>{
+        if(!client.name || !client.email || !client.age || !client.phoneNumber){
+          console.log("data not avail");
+          this.router.navigate(['/patient']);
+          this.toastr.error("complete your profile first");
+          resolve(false);
         }
         else{
+          console.log("data avail");
           resolve(true);
         }
-      });
+      
+     });
     });
   }
   

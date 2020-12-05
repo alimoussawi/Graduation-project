@@ -6,7 +6,7 @@
 
   <!--Card image-->
   <div class="view overlay waves-light" mdbWavesEffect>
-    <mdb-card-img src="{{doctor?.photoURL}}"></mdb-card-img>
+    <mdb-card-img src="{{doctor?.photoURL||user?.photoURL}}"></mdb-card-img>
     <a>
       <div class="mask rgba-white-slight"></div>
     </a>
@@ -18,8 +18,8 @@
 
     <!--Title-->
     <mdb-card-title>
-      <h3>{{doctor?.name}}</h3>
-      <h4>{{doctor?.speciality}}</h4>
+      <h3>{{doctor?.name||user?.displayName}}</h3>
+      <h4>{{doctor?.speciality||"N/A"}}</h4>
     </mdb-card-title>
 
     <hr>
@@ -36,7 +36,7 @@
 </mdb-card>
 <!--/.Card-->
         </div>
-        <div *ngIf="!doctor?.isVerified && doctor?.address" class="col-lg-8 col-md-12 col-sm-12  d-flex justify-content-center">
+        <div *ngIf="!doctor?.isVerified && doctor?.addressInfo?.address" class="col-lg-8 col-md-12 col-sm-12  d-flex justify-content-center">
           <div class="my-svg">
             <svg viewBox="0 0 649 717" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g id="waiting">
@@ -110,7 +110,7 @@
           </div>
             
         </div>
-        <div *ngIf="!doctor?.isVerified && !doctor?.address" class="col-lg-8 col-md-12 col-sm-12">
+        <div *ngIf="false||(!doctor?.isVerified && !doctor?.addressInfo?.address)" class="col-lg-8 col-md-12 col-sm-12">
             <form [formGroup]="EditInfoForm" (ngSubmit)="onSubmit()">
                 <div class="form-row mt-5 mb-1">
                   <div class="col-md-4 mb-3">
@@ -129,7 +129,7 @@
                     </div>
                   </div>
                   <div class="col-md-4 mb-3">
-                    <pre class="text-success font-weight-bold">Phone Number</pre>
+                    <pre class="text-success font-weight-bold">Phone Number*</pre>
                     <input formControlName="phoneNumber" type="text" class="form-control" placeholder="Phone Number" >
                     <div *ngIf="h.phoneNumber.errors">
                       <div *ngIf="h.phoneNumber.errors.required" class="text-danger">
@@ -138,10 +138,13 @@
                       <div *ngIf="h.phoneNumber.errors.minlength" class="text-danger">
                         phone too short
                       </div>
+                      <div *ngIf="h.phoneNumber.errors.pattern" class="text-danger">
+                        phone not valid
+                      </div>
                     </div>
                   </div>
                   <div class="col-md-4 mb-3">
-                    <pre class="text-success font-weight-bold">Email</pre>                      
+                    <pre class="text-success font-weight-bold">Email*</pre>                      
                       <input formControlName="email" type="text" class="form-control" placeholder="Email" >
                       <div *ngIf="h.email.errors">
                         <div *ngIf="h.email.errors.required" class="text-danger">
@@ -154,12 +157,10 @@
                   </div>
                 </div>
                 <div class="form-row mb-1">
-                  <div class="col-lg-6 col-md-6 col-sm-12 mb-1">
-                      <pre class="text-success font-weight-bold">Speciality</pre>
-                      <select formControlName="speciality" class="browser-default custom-select">
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                  <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
+                      <pre class="text-success font-weight-bold">Speciality*</pre>
+                      <select formControlName="speciality" placeholder="speciality" class="browser-default custom-select">
+                          <option *ngFor="let spec of specialities" value="{{spec}}">{{spec}}</option>
                       </select>
                       <div *ngIf="h.speciality.errors">
                         <div *ngIf="h.speciality.errors.required" class="text-danger">
@@ -168,10 +169,10 @@
                       </div>
                   </div>
                   <div class="col-lg-3 col-md-3 col-sm-12 mb-1">
-                    <pre class="text-success font-weight-bold">Gender</pre>
-                    <select formControlName="gender" class="browser-default custom-select">
-                      <option value="1">Male</option>
-                      <option value="2">Female</option>
+                    <pre class="text-success font-weight-bold">Gender*</pre>
+                    <select formControlName="gender" placeholder="gender" class="browser-default custom-select">
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
                     </select>
                     <div *ngIf="h.gender.errors">
                       <div *ngIf="h.gender.errors.required" class="text-danger">
@@ -180,21 +181,29 @@
                       
                     </div>
                   </div>
+                  <div class="col-lg-2 col-md-2 col-sm-12 mb-1">
+                    <pre class="text-success font-weight-bold">price*</pre>
+                    <input formControlName="price" type="number" class="form-control" placeholder="price" >
+                    <div *ngIf="h.price.errors">
+                      <div *ngIf="h.price.errors.required" class="text-danger">
+                        price is required
+                      </div>
+                    </div>
+                </div>
                   <div class="col-lg-3 col-md-3 col-sm-12 mb-1">
-                    <pre class="text-success font-weight-bold">age</pre>
-                    <input formControlName="age" type="text" placeholder="Datepicker" class="form-control"
-                            bsDatepicker
-                          [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"/>
-                          <div *ngIf="h.age.errors">
-                            <div *ngIf="h.age.errors.required" class="text-danger">
-                              age is required
+                    <pre class="text-success font-weight-bold">birthDate*</pre>
+                    <input formControlName="birthDate" type="text" placeholder="Birth Date" class="form-control"
+                            bsDatepicker/>
+                          <div *ngIf="h.birthDate.errors">
+                            <div *ngIf="h.birthDate.errors.required" class="text-danger">
+                              birthDate is required
                             </div>
                           </div>
                   </div>
                 </div>
                 <div class="form-row mb-5">
                   <div class="col-lg-6 col-md-6 col-sm-12 mb-5">
-                    <pre class="text-success font-weight-bold">Bio</pre>
+                    <pre class="text-success font-weight-bold">Bio*</pre>
                     <textarea formControlName="bio" class="form-control" placeholder="add a short Bio"></textarea>
                     <div *ngIf="h.bio.errors">
                       <div *ngIf="h.bio.errors.required" class="text-danger">
@@ -206,8 +215,8 @@
                     </div>
                   </div>
                   <div class="col-lg-6 col-md-6 col-sm-12 mb-1 mt-4">
-                    <pre class="text-success font-weight-bold">Your Personal Photo</pre>
-                    <input formControlName="photo" (change)="changePhoto($event)" type="file" class="file" required />
+                    <pre class="text-success font-weight-bold">Personal Photo*</pre>
+                    <input formControlName="photo" (change)="changePhoto($event)" type="file" class="file" required  accept="image/x-png,image/gif,image/jpeg"/>
                     <div *ngIf="h.photo.errors">
                       <div *ngIf="h.photo.errors.required" class="text-danger">
                         photo is required
@@ -217,12 +226,22 @@
                 </div>
                 <div class="form-row mb-2">
                   <div class="col-lg-6 col-md-6 col-sm-12 mb-1 ">
-                    <pre class="text-success font-weight-bold">Your Id card</pre>
-                    <input formControlName="idFile" (change)="changeID($event)" type="file" class="file" required />
+                    <pre class="text-success font-weight-bold">ID card*</pre>
+                    <input formControlName="idFile" (change)="changeID($event)" type="file" class="file" required accept="image/x-png,image/gif,image/jpeg"/>
+                    <div *ngIf="h.idFile.errors">
+                      <div *ngIf="h.idFile.errors.required" class="text-danger">
+                        ID card is required
+                      </div>
+                    </div>
                   </div>
                   <div class="col-lg-6 col-md-6 col-sm-12 mb-1">
-                    <pre class="text-success font-weight-bold">Your medical license</pre>
-                    <input formControlName="licenseFile" (change)="changeLicense($event)" type="file" class="file" required />
+                    <pre class="text-success font-weight-bold">Medical license*</pre>
+                    <input formControlName="licenseFile" (change)="changeLicense($event)" type="file" class="file" required accept="image/x-png,image/gif,image/jpeg"/>
+                    <div *ngIf="h.licenseFile.errors">
+                      <div *ngIf="h.licenseFile.errors.required" class="text-danger">
+                        license is required
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="form-group mb-1 mt-5">
@@ -241,13 +260,13 @@
                 </div>
                 <div class="form-group">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" required>
+                    <input (change)="termsCheck=!termsCheck" [checked]="termsCheck" class="form-check-input" type="checkbox" required>
                     <label class="form-check-label">
                       Agree to terms and conditions
                     </label>
                   </div>
                 </div>
-                <button [disabled]="loading ||EditInfoForm.invalid" class="btn btn-primary" type="submit">Submit form</button>
+                <button [disabled]="loading ||EditInfoForm.invalid||!termsCheck||!address" class="btn btn-primary" type="submit">Submit form</button>
               </form>
         </div>
     </div>

@@ -38,9 +38,8 @@ export class AuthService {
   }
   
   async signOut(){
-    this.router.navigate(['/']).finally(()=>{
-      this.auth.signOut();
-    });
+     this.auth.signOut();
+    
   }
   
   updateUserData(user){

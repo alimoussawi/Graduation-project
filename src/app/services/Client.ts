@@ -3,7 +3,7 @@ export interface Client{
     id?:string,
     name?:string,
     email:string,
-    age?:number,
+    age?:any,
     phoneNumber?:string,
     photoURL?:string,
     gender?:string,

@@ -29,8 +29,17 @@ export class ClientService {
   }
 
   updateClientData(clientId:string,data:Client){
+    const {name,email,gender,phoneNumber,age}=data;
+    const clientData={
+      name:name,
+      email:email,
+      gender:gender,
+      phoneNumber:phoneNumber,
+      age:Date.parse(age),
+    }    
     const clientRef:AngularFirestoreDocument<Client>=this.afs.doc(`clients/${clientId}`);
-    return clientRef.set(data,{merge:true}); 
+    alert(clientData.age);
+    return clientRef.set(clientData,{merge:true}); 
   }
 
   updateClientPhoto(clientId:string,photoPath:string){

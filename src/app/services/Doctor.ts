@@ -1,18 +1,19 @@
-
+import { AddressInfo } from "./AddressInfo";
 export interface Doctor{
     id?:string,
     name?:string,
     email:string,
-    age?:number,
+    birthDate?:any,
     phoneNumber?:string,
     gender?:string,
     role?:string,
     speciality?:string,
     bio?:string,
     photoURL?:string,
-    idURL?:string,
-    licenseURL?:string,
-    address?:string,   
-    location?:firebase.default.firestore.GeoPoint;
-    isVerified?:boolean;
+    idCardUrl?:string,
+    medicalLicenseUrl?:string,
+    addressInfo?:AddressInfo,   
+    isVerified?:boolean,
+    status?:string,
+    price?:number,
 }
