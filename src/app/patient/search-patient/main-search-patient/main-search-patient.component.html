@@ -1,6 +1,6 @@
-<div class="container mt-5">
+<div class="container mt-5" >
   <tabset class="m-5">
-    <tab heading="Search By Name" #nameTab="tab">
+    <tab class="speciality-tab" heading="Search By Speciality" #nameTab="tab" >
       <div class="row m-5">
         <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
           <button (click)="basicModal.show()" class="btn btn-primary rounded-0 mb-3">Choose A Speciality</button>
@@ -32,14 +32,14 @@
                   <input
                     type="text"
                     class="form-control mb-5"
-                    [(ngModel)]="searchText"
+                    [(ngModel)]="searchSpeciality"
                     id="myInput"
                     placeholder="Search for speciality"
                   />
                   <ul #specList class="list-unstyled">
                     <li
                       *ngFor="
-                        let speciality of specialities | filter: searchText
+                        let speciality of specialities | filter: searchSpeciality
                       "
                     >
                       <input
@@ -74,14 +74,33 @@
       <div class="row">
         <div class="col-lg-4 mb-3">
           <accordion [isAnimated]="true">
-            <accordion-group heading="Order">
-              
-            </accordion-group>
+            <accordion-group heading="Filters" [isOpen]="true">
+                <accordion-group heading="City" [isOpen]="true">
+                  <span accordion-heading><fa-icon class="m-2" [icon]="faCity"></fa-icon></span>
+                  <input
+                  type="text"
+                  class="form-control mb-5"
+                  [(ngModel)]="searchCity"
+                  id="myInput"
+                  placeholder="Search cities"
+                />
+                  <ul class="list-unstyled">
+                    <li *ngFor="let city of cities| filter: searchCity"><input  [(ngModel)]="cityRadio" name="city" (change)="specRadio?loadItems(specRadio,cityRadio,priceRadio):null" type="radio" value={{city}} /> {{city}}</li>
+                  </ul>
+                </accordion-group>
+                <accordion-group heading="Price" [isOpen]="true">
+                  <span accordion-heading><fa-icon class="m-2" [icon]="faMoneyBill"></fa-icon></span>
+                  <ul class="list-unstyled">
+                    <li *ngFor="let price of prices" ><input [(ngModel)]="priceRadio" type="radio" name="price" value="{{price}}" (change)="specRadio?loadItems(specRadio,cityRadio,priceRadio):null" /> Less Than {{price}}</li>
+                    </ul>
+                </accordion-group>
+                
+              </accordion-group>
           </accordion>
         </div>
         <div class="col-lg-8">
           <div class="row">
-            <div class="cards col-lg-6" *ngFor="let doctor of doctors">
+            <div class="cards col-lg-6 col-md-12 col-sm-12" *ngFor="let doctor of tableData">
               <!-- Card -->
               <div class="card booking-card mb-5">
                 <!-- Card image -->
@@ -90,13 +109,13 @@
                     class="card-img-top m-auto rounded-circle w-50"
                     src="{{ doctor?.photoURL }}"
                   />
-                  <a href="#!">
+                  <a (click)="cardClick(doctor.id);">
                     <div class="mask rgba-white-slight"></div>
                   </a>
                 </div>
 
                 <!-- Card content -->
-                <div class="card-body">
+                <div class="card-body" style="min-height: 400px;">
                   <!-- Title -->
                   <h4 class="card-title font-weight-bold">
                     <a>{{ doctor?.name }}</a>
@@ -123,8 +142,9 @@
                     </li>
                   </ul>
                   <p class="mb-2">
-                    {{ doctor?.price | number: "1.1-1" }}$ • American,
-                    Restaurant
+                    {{ doctor?.price | number: "1.1-1" }} UAH • {{
+                      doctor?.addressInfo?.city
+                    }}
                   </p>
                   <!-- Text -->
                   <p class="card-text">
@@ -132,9 +152,7 @@
                   </p>
                   <hr class="my-4" />
                   <p class="lead">
-                    <strong class="font-weight-bold">{{
-                      doctor?.addressInfo.city
-                    }}</strong>
+                    <strong class="font-weight-bold">Available</strong>
                   </p>
                   <ul class="list-unstyled list d-flex justify-content mb-0">
                     <li class="list-item mr-0">
@@ -168,11 +186,22 @@
               </div>
               <!-- Card -->
             </div>
+            <div *ngIf="!tableData.length &&specRadio" class="col-lg-12 col-md-12 col-sm-12 text-center">
+                <h2 class="text-secondary">No Results Available</h2>
+            </div>
+          </div>
+          <div *ngIf="tableData.length" class="text-center">
+            <button class="btn btn btn-info btn-sm float-left" (click)="prevPage(specRadio,cityRadio,priceRadio)"
+                [disabled]="disable_prev || !(pagination_clicked_count>0)">Previous</button> <b>Page no: {{pagination_clicked_count+1}}</b>
+            <button class="btn btn btn-info btn-sm float-right" (click)="nextPage(specRadio,cityRadio,priceRadio)" [disabled]="disable_next">Next</button>
           </div>
         </div>
       </div>
     </tab>
 
-    <tab heading="Search By Speciality" #specialityTab="tab"> </tab>
+    <tab heading="Search By Name" #specialityTab="tab">
+      <ng-template tabHeading><fa-icon class="m-2" [icon]="faFileSignature"></fa-icon></ng-template>
+  
+    </tab>
   </tabset>
 </div>

@@ -90,11 +90,15 @@ export class DoctorService {
     return doctorRef.update(doctorInfo);
   }
 
-  getDoctorsBySpeciality(speciality:string,orderBy?:any){
-      const doctorsRef:AngularFirestoreCollection<Doctor>=this.afs.collection(`aa`,ref=>ref.limit(5).orderBy('price'));
-
-      alert(speciality);
+  getDoctorsBySpeciality(){
+      const doctorsRef:AngularFirestoreCollection<Doctor>=this.afs.collection(`doctors`,ref=>ref
+    .limit(5)
+    .where(`speciality`,'==',`IVF and Infertility`)
+    .where(`addressInfo.city`,'==',`Kyiv`)
+    .where(`price`,'<=', 1000)
+    .where(`gender`,'==',`Male`)
+    .orderBy('price','asc'));
   
-        return doctorsRef.valueChanges();
+    return doctorsRef.valueChanges();
   }
 }
