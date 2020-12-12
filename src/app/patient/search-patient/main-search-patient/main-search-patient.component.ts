@@ -27,6 +27,7 @@ export class MainSearchPatientComponent implements OnInit {
   faMale=faMale;
   faFemale=faFemale;
   /**/
+  doctorsLoading:boolean=false;
   searchSpeciality: string;
   searchCity:string;
   specRadio: string;
@@ -34,6 +35,8 @@ export class MainSearchPatientComponent implements OnInit {
   priceRadio:number;
   cities:string[]=['Kyiv',`Kharkivs'ka oblast`,`Dnipropetrovs'ka oblast`,`Poltavs'ka oblast`,`L'vivs'ka oblast`]
   cityRadio:string;
+  sorting:string[]=['asc','desc'];
+  sortRadio:firebase.default.firestore.OrderByDirection;
   /**/
   specialities: string[] = ['Dermatology (Skin)', 'Dentistry (Teeth)', 'Psychiatry (Mental, Emotional or Behavioral Disorders)',
     'Pediatrics and New Born (Child)', 'Neurology (Brain &amp; Nerves)', 'Orthopedics (Bones)', 'Gynaecology and Infertility',
@@ -94,18 +97,20 @@ export class MainSearchPatientComponent implements OnInit {
   }
 
 
-  loadItems(speciality:string,city:string=this.defaultcity,price:number=1000) {
+  loadItems(speciality:string,city:string=this.defaultcity,price:number=1000,sort:firebase.default.firestore.OrderByDirection='asc') {
+    this.doctorsLoading=true;
     this.afs.collection('doctors', ref => ref
     .limit(2)
     .where(`speciality`,'==',`${speciality}`)
     .where(`addressInfo.city`,'==',`${city}`)
     .where(`price`,'<=', parseInt(`${price}`))
-    .orderBy('price','asc')
+    .orderBy('price',sort)
     ).snapshotChanges()
       .subscribe(response => {
         if (!response.length) {
           console.log("No Data Available");
           this.tableData = [];
+          this.doctorsLoading=false;
           return false;
         }
         this.firstInResponse = response[0].payload.doc;
@@ -125,18 +130,20 @@ export class MainSearchPatientComponent implements OnInit {
 
         //Push first item to use for Previous action
         this.push_prev_startAt(this.firstInResponse);
+        this.doctorsLoading=false;
       }, error => {
       });
   }
 
   //Show previous set 
-  prevPage(speciality:string,city:string="Kharkivs'ka oblast",price:number=1000) {
+  prevPage(speciality:string,city:string="Kharkivs'ka oblast",price:number=1000,sort:firebase.default.firestore.OrderByDirection='asc') {
+    this.doctorsLoading=true;
     this.disable_prev = true;
     this.afs.collection('doctors', ref => ref
     .where(`speciality`,'==',`${speciality}`)
     .where(`addressInfo.city`,'==',`${city}`)
     .where(`price`,'<=', parseInt(`${price}`))
-    .orderBy('price','asc')
+    .orderBy('price',sort)
       .startAt(this.get_prev_startAt())
       .endBefore(this.firstInResponse)
       .limit(2)
@@ -159,19 +166,21 @@ export class MainSearchPatientComponent implements OnInit {
         //Enable buttons again
         this.disable_prev = false;
         this.disable_next = false;
+        this.doctorsLoading=false;
       }, error => {
         this.disable_prev = false;
       });
   }
 
-  nextPage(speciality:string,city:string="Kharkivs'ka oblast",price:number=1000) {
+  nextPage(speciality:string,city:string="Kharkivs'ka oblast",price:number=1000,sort:firebase.default.firestore.OrderByDirection='asc') {
+    this.doctorsLoading=true;
     this.disable_next = true;
     this.afs.collection('doctors', ref => ref
     .limit(2)
     .where(`speciality`,'==',`${speciality}`)
     .where(`addressInfo.city`,'==',`${city}`)
     .where(`price`,'<=', parseInt(`${price}`))
-    .orderBy('price','asc')
+    .orderBy('price',sort)
       .startAfter(this.lastInResponse)
     ).get()
       .subscribe(response => {
@@ -194,6 +203,7 @@ export class MainSearchPatientComponent implements OnInit {
         this.push_prev_startAt(this.firstInResponse);
 
         this.disable_next = false;
+        this.doctorsLoading=false;
       }, error => {
         this.disable_next = false;
       });

@@ -1,8 +1,10 @@
 import { AddressInfo } from "./AddressInfo";
+import {Availability} from "./Availability";
+import { Reservation } from './Reservation';
 export interface Doctor{
     id?:string,
     name?:string,
-    email:string,
+    email?:string,
     birthDate?:any,
     phoneNumber?:string,
     gender?:string,
@@ -16,4 +18,5 @@ export interface Doctor{
     isVerified?:boolean,
     status?:string,
     price?:number,
+    availability?:Availability,
 }

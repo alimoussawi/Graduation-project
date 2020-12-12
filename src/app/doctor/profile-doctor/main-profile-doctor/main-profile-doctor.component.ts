@@ -85,7 +85,7 @@ export class MainProfileDoctorComponent implements OnInit {
         this.toastr.info("your profile is being reviewed by our team !, if you want to make changes contact our support team ", "",
           { positionClass: 'toast-bottom-full-width' ,disableTimeOut:true});
       }
-    },500)
+    },1000)
   }
 
   loadMap() {

@@ -9,6 +9,8 @@ import 'firebase/firestore';
 import * as geofirestore from 'geofirestore';
 import { UserService } from '../user/user.service';
 import { AddressInfo } from '../../AddressInfo';
+import { Availability } from '../../Availability';
+import { Reservation } from '../../Reservation';
 
 firebase.default.initializeApp(environment.firebaseConfig);
 const firestore = firebase.default.firestore();
@@ -101,4 +103,43 @@ export class DoctorService {
   
     return doctorsRef.valueChanges();
   }
+
+  updateAvailability(userId:String,availability:Availability){
+    alert(userId);
+    const doctorRef:AngularFirestoreDocument<Doctor>=this.afs.doc(`doctors/${userId}`);
+    const doctorAv:Doctor={
+      availability:availability
+    }
+    return doctorRef.set(doctorAv,{merge:true});
+  }
+
+  getReservations(userId:String){
+    const resRef:AngularFirestoreDocument<any>=this.afs.doc(`reservations/${userId}`);  
+  return resRef.valueChanges();
+  }
+
+  createRes(userId,res:Reservation){
+    
+    const resRef:AngularFirestoreDocument<any>=this.afs.doc(`reservations/${userId}`); 
+    const obj={
+      dates:res
+    }
+    console.log(obj);
+   return resRef.set(obj);
+  }
 }
+
+
+/*let objects =[]
+    res["2020-12-10"].forEach((key,value)=>{
+    const object={
+      time:value,
+      status:key
+    }
+      objects.push(object);
+    })
+
+    console.log(objects[0]);
+    let object2={"2020-12-10":objects};
+    console.log(object2);
+     */
