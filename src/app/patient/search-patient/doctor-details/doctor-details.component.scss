@@ -1,0 +1,95 @@
+.card{
+    .view{
+        background-color: lightgray;
+    }
+}
+.times {
+    box-shadow: 0px 4px 8px 0px #7986CB
+}
+
+input {
+    padding: 10px 20px !important;
+    border: 1px solid #000 !important;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background-color: #616161 !important;
+    color: #fff !important;
+    font-size: 16px;
+    letter-spacing: 1px;
+    width: 180px
+}
+
+input:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: 1px solid #512DA8;
+    outline-width: 0
+}
+
+::placeholder {
+    color: #fff;
+    opacity: 1
+}
+
+:-ms-input-placeholder {
+    color: #fff
+}
+
+::-ms-input-placeholder {
+    color: #fff
+}
+
+button:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    outline-width: 0
+}
+
+
+thead tr:nth-child(3) th {
+    color: #fff !important;
+    font-weight: bold;
+    padding-top: 20px;
+    padding-bottom: 10px
+}
+
+.dow,
+.old-day,
+.day,
+.new-day {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 0px !important
+}
+
+.old-day:hover,
+.day:hover,
+.new-day:hover,
+.month:hover,
+.year:hover,
+.decade:hover,
+.century:hover {
+    border-radius: 6px !important;
+    background-color: #eee;
+    color: #000
+}
+
+.active {
+    border-radius: 6px !important;
+    background-image: linear-gradient(#90CAF9, #64B5F6) !important;
+    color: #000 !important
+}
+
+.disabled {
+    color: #616161 !important
+}
+
+
+
+
+.card-header{
+    background-color: #FF0056;
+}
+

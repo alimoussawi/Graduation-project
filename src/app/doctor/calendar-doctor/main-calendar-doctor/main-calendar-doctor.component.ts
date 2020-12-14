@@ -23,7 +23,6 @@ export class MainCalendarDoctorComponent implements OnInit {
   user: User;
   doctor: Doctor;
   userId: string;
-  reservations:Reservation;
   reservationsDates;
   constructor(private doctorService: DoctorService, private authService: AuthService,private toastr:ToastrService) {
     authService.user.subscribe(user => {
@@ -34,7 +33,6 @@ export class MainCalendarDoctorComponent implements OnInit {
           this.doctor = doctor;
           doctorService.getReservations(this.userId).subscribe(reservations=>{
             if(reservations){
-            this.reservations=reservations;
             this.reservationsDates=reservations.dates;
             }
           });

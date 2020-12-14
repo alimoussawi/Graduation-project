@@ -33,7 +33,6 @@
                     type="text"
                     class="form-control mb-5"
                     [(ngModel)]="searchSpeciality"
-                    id="myInput"
                     placeholder="Search for speciality"
                   />
                   <ul #specList class="list-unstyled">
@@ -81,7 +80,6 @@
                   type="text"
                   class="form-control mb-5"
                   [(ngModel)]="searchCity"
-                  id="myInput"
                   placeholder="Search cities"
                 />
                   <ul class="list-unstyled">
@@ -121,7 +119,7 @@
                     class="card-img-top m-auto rounded-circle w-50"
                     src="{{ doctor?.photoURL }}"
                   />
-                  <a (click)="cardClick(doctor.id);">
+                  <a (click)="cardClick(doctor?.id);">
                     <div class="mask rgba-white-slight"></div>
                   </a>
                 </div>
@@ -188,7 +186,7 @@
                       <div class="chip p-1 deep-purple rounded white-text mr-1 mb-1">
                         9:00PM
                       </div>
-                      </div>
+                    </div>
                     </div>
                     </div>
                   <!-- Button -->

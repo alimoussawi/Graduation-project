@@ -10,10 +10,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { FilterPipe } from './pipes/filter.pipe';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { DoctorDetailsComponent } from './doctor-details/doctor-details.component';
 
 
 @NgModule({
-  declarations: [MainSearchPatientComponent, FilterPipe],
+  declarations: [MainSearchPatientComponent, FilterPipe, DoctorDetailsComponent],
   imports: [
     CommonModule,
     FormsModule,

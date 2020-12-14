@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { MapsAPILoader } from '@agm/core';
 import { faFileSignature, faUserMd,faMale,faFemale,faCity,faVenusMars,faMoneyBill,faFilter } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { DoctorService } from 'src/app/services/db/doctor/doctor.service';
 import { Doctor } from 'src/app/services/Doctor';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-search-patient',
@@ -74,7 +75,7 @@ export class MainSearchPatientComponent implements OnInit {
 
   
   doctors: any[];
-  constructor(private afs:AngularFirestore,private doctorService: DoctorService,private mapsAPILoader: MapsAPILoader, private toastr: ToastrService) { }
+  constructor(private afs:AngularFirestore,private doctorService: DoctorService,private mapsAPILoader: MapsAPILoader, private toastr: ToastrService,private router:Router) { }
 
   ngOnInit(): void {
     this.mapsAPILoader.load().then(() => {
@@ -187,6 +188,7 @@ export class MainSearchPatientComponent implements OnInit {
 
         if (!response.docs.length) {
           this.disable_next = true;
+          this.doctorsLoading=false;
           return;
         }
 
@@ -282,6 +284,7 @@ export class MainSearchPatientComponent implements OnInit {
 
   cardClick(id){
     alert("card  "+id+"  clicked");
+    this.router.navigate([`/patient/search/${id}`]);
   }
 
 }
