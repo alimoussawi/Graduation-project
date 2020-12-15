@@ -11,6 +11,7 @@ import { UserService } from '../user/user.service';
 import { AddressInfo } from '../../AddressInfo';
 import { Availability } from '../../Availability';
 import { Reservation } from '../../Reservation';
+import { first, take } from 'rxjs/operators';
 
 firebase.default.initializeApp(environment.firebaseConfig);
 const firestore = firebase.default.firestore();
@@ -129,4 +130,18 @@ export class DoctorService {
     const doctorRef:AngularFirestoreDocument<Doctor>=this.afs.doc(`doctors/${doctorId}`);
     return doctorRef.valueChanges();
   }
+
+  updateReservations(doctorId,selectedDate,selectedTime){
+    const resRef:AngularFirestoreDocument<any>=this.afs.doc(`reservations/${doctorId}`);;
+    const obj={
+      dates:{
+        [selectedDate]:{
+          [selectedTime]:"reserved"
+        }        
+      },
+    }
+    console.log(obj)
+    return resRef.set(obj,{merge:true});
+  }
+
 }

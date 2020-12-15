@@ -10,6 +10,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireFunctionsModule,REGION } from '@angular/fire/functions';
 import { environment } from 'src/environments/environment';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -32,11 +33,12 @@ import { AgmCoreModule } from '@agm/core';
     AngularFirestoreModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireStorageModule,
+    AngularFireFunctionsModule,
     ToastrModule.forRoot(),
     MDBBootstrapModule.forRoot(),
     AgmCoreModule.forRoot({apiKey:environment.googleMapsKey,libraries: ['places'],language:'en'}),
   ],
-  providers: [],
+  providers: [{ provide: REGION, useValue: 'us-central1' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -15,6 +15,9 @@ export const environment = {
     measurementId: "G-TEYGV27JTP"
   },
   googleMapsKey:'AIzaSyBCImzQWMjFjUkL3GxBnZWdDnLMzVEXczU',
+  stripe:{
+    testKey:'pk_test_51HyEB9Aa4NYHzz70UpgVUVSLgWwrepo9qL0XmXoBNGWgyuRwVmQfa8rYtrIBsjHdYOljkgQzWIm9gEjFXNLSNn8u00XvSIC2vy'
+  }
 };
 
 /*

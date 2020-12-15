@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div *ngIf="!paymentLoading" class="container-fluid">
   <div class="row mt-5 p-5">
     <div class="col-lg-4 col-md-4 col-sm-12">
       <div class="card booking-card mb-5">
@@ -116,6 +116,7 @@
                 type="button"
                 class="btn btn-primary relative waves-light"
                 mdbWavesEffect
+                (click)="basicModal.hide();paymentModal.show();"
               >
                 proceed to payment
               </button>
@@ -123,4 +124,65 @@
           </div>
         </div>
       </div>
+
+      <!--payment-modal-->
+  <div
+  mdbModal
+  #paymentModal="mdbModal"
+  class="modal fade bottom"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myBasicModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="close pull-right"
+          aria-label="Close"
+          (click)="paymentModal.hide()"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel">
+          Confirm Payment
+        </h4>
+      </div>
+      <div class="modal-body">
+        <div class="content payment-card">
+          <h2 class="title"> Payment </h2>
+        
+          <form action="/charge" method="post" id="payment-form">
+        
+            <div class="paymentBox">
+              <div id="card-element">
+              </div>
+        
+              <button id="button"> Pay </button>
+              <div id="card-errors" role="alert"></div>
+            </div>
+        
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+</div>
+<div *ngIf="paymentLoading">
+  <div class="sk-cube-grid">
+    <div class="sk-cube sk-cube1"></div>
+    <div class="sk-cube sk-cube2"></div>
+    <div class="sk-cube sk-cube3"></div>
+    <div class="sk-cube sk-cube4"></div>
+    <div class="sk-cube sk-cube5"></div>
+    <div class="sk-cube sk-cube6"></div>
+    <div class="sk-cube sk-cube7"></div>
+    <div class="sk-cube sk-cube8"></div>
+    <div class="sk-cube sk-cube9"></div>
+    <div class="text-primary font-weight-bold">LOADING</div>
+  </div>
+</div>
+
