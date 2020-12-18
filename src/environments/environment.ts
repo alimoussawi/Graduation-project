@@ -17,6 +17,9 @@ export const environment = {
   googleMapsKey:'AIzaSyBCImzQWMjFjUkL3GxBnZWdDnLMzVEXczU',
   stripe:{
     testKey:'pk_test_51HyEB9Aa4NYHzz70UpgVUVSLgWwrepo9qL0XmXoBNGWgyuRwVmQfa8rYtrIBsjHdYOljkgQzWIm9gEjFXNLSNn8u00XvSIC2vy'
+  },
+  agora:{
+    appId:'b85b7d5dd9034e62923430027ccbba77'
   }
 };
 

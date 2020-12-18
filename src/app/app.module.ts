@@ -16,7 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { AgmCoreModule } from '@agm/core';
-
+import {NgxAgoraModule} from 'ngx-agora';
 
 @NgModule({
   declarations: [
@@ -37,6 +37,7 @@ import { AgmCoreModule } from '@agm/core';
     ToastrModule.forRoot(),
     MDBBootstrapModule.forRoot(),
     AgmCoreModule.forRoot({apiKey:environment.googleMapsKey,libraries: ['places'],language:'en'}),
+    NgxAgoraModule.forRoot({AppID:environment.agora.appId}),
   ],
   providers: [{ provide: REGION, useValue: 'us-central1' }],
   bootstrap: [AppComponent]

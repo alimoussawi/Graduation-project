@@ -134,6 +134,7 @@ export class DoctorService {
 
   updateReservations(doctorId,selectedDate,selectedTime){
     const resRef:AngularFirestoreDocument<any>=this.afs.doc(`reservations/${doctorId}`);;
+    
     const obj={
       dates:{
         [selectedDate]:{
