@@ -1,0 +1,30 @@
+<div class="container mt-5 p-5">
+    <div class="row">
+        <div *ngFor="let res of clientReservations" class="col-lg-6 col-md-6 col-sm-12 mb-5">
+            <div class="card border p-3 card-1">
+                <div class="info d-flex justify-content-between align-items-center">
+                    <div class="group d-flex flex-column"> <span class="font-weight-bold">dr.{{res.doctorName}}</span> <small class="text-success">{{res.status}}</small> </div> <fa-icon [icon]="faBell"></fa-icon>
+                </div>
+                <div *ngIf="checkIfToday(res.date);else elseBlock" class="card p-2 mt-3 card-2 px-4 py-4">
+                    <a>
+                    <div (click)="todayClick(res.date,res.time)" class="info d-flex justify-content-between align-items-center">
+                        <div class="group d-flex flex-column text-white"> <span class="font-weight-bold">Today</span> </div>  <i class="fa fa-angle-right text-white"></i>
+                    </div>
+                    </a>
+                </div>
+                <ng-template #elseBlock>
+                <div class="card pink p-2 mt-3 card-2 px-4 py-4">
+                    <a>
+                    <div class="info d-flex justify-content-between align-items-center">
+                        <div class="group d-flex flex-column text-white"> <span class="font-weight-bold">Not Ready</span> </div>  <i class="fa fa-angle-right text-white"></i>
+                    </div>
+                    </a>
+                </div>
+                </ng-template>
+                <div class="info d-flex justify-content-between mt-3">
+                    <div class="group d-flex flex-column"> <span class="font-weight-bold">Date and Time:</span> <small>{{res.date}}</small> </div> <small>{{res.time}}</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -153,6 +153,7 @@ export class DoctorDetailsComponent implements OnInit {
     this.selectedPrice=this.doctor.price;
   }
   private stripeSourceHandler(source): void {
+    console.log(source);
     this.paymentLoading=true;
     const callable = this.fns.httpsCallable('stripeChargeCall');
     const obs = callable(source);
@@ -164,7 +165,7 @@ export class DoctorDetailsComponent implements OnInit {
           this.userService.createClientDoctorReservation(this.doctorId,this.doctor.name,this.userId,this.userName,this.selectedDate,this.selectedTime)
           .then(()=>{
             this.paymentLoading=false;
-            this.router.navigate(['/patient'])
+            this.router.navigate(['/patient/appointments'])
           });
         });
       } else {
@@ -175,6 +176,17 @@ export class DoctorDetailsComponent implements OnInit {
     });
   }
 
+  proceedToPayment(basicModal){
+    if(this.selectedTimeStatus!='busy'){
+    this.doctorService.makeReservationBusy(this.doctorId,this.selectedDate,this.selectedTime).then(()=>{
+      basicModal.hide();
+    });
+  }
+}
+
+onPaymentModalClose(event){
+  this.doctorService.makeReservationFree(this.doctorId,this.selectedDate,this.selectedTime);
+}
   testUpdate(){
     this.doctorService.updateReservations(this.doctorId,this.selectedDate,this.selectedTime);
   }

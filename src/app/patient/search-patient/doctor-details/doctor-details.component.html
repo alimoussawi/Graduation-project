@@ -116,7 +116,7 @@
                 type="button"
                 class="btn btn-primary relative waves-light"
                 mdbWavesEffect
-                (click)="basicModal.hide();paymentModal.show();"
+                (click)="proceedToPayment(basicModal);paymentModal.show();"
               >
                 proceed to payment
               </button>
@@ -134,6 +134,7 @@
   role="dialog"
   aria-labelledby="myBasicModalLabel"
   aria-hidden="true"
+  (close)="onPaymentModalClose($event)"
 >
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">

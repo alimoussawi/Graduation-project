@@ -12,6 +12,7 @@ import { AddressInfo } from '../../AddressInfo';
 import { Availability } from '../../Availability';
 import { Reservation } from '../../Reservation';
 import { first, take } from 'rxjs/operators';
+import { DoctorReservation } from '../../DoctorReservation';
 
 firebase.default.initializeApp(environment.firebaseConfig);
 const firestore = firebase.default.firestore();
@@ -144,4 +145,42 @@ export class DoctorService {
     return resRef.set(obj,{merge:true});
   }
 
+  getDoctorReservations(doctorId){
+    const doctorReservationsRef:AngularFirestoreCollection<DoctorReservation>= this.afs.collection(`doctors`)
+    .doc(`${doctorId}`)
+    .collection(`reservations`,ref=>ref.where(`status`,'==',`waiting`));
+    return doctorReservationsRef.valueChanges();
+  }
+  getDoctoreservationById(doctorId,reservationId){
+    const doctorReservationsRef:AngularFirestoreDocument<DoctorReservation>= this.afs.collection(`doctors`)
+    .doc(`${doctorId}`)
+    .collection(`reservations`)
+    .doc(`${reservationId}`);
+    return doctorReservationsRef.valueChanges();
+  }
+
+  makeReservationBusy(doctorId,selectedDate,selectedTime){
+    const resRef:AngularFirestoreDocument<any>=this.afs.doc(`reservations/${doctorId}`);
+    const obj={
+      dates:{
+        [selectedDate]:{
+          [selectedTime]:"busy"
+        }        
+      },
+    }
+    console.log(obj)
+    return resRef.set(obj,{merge:true});
+  }
+  makeReservationFree(doctorId,selectedDate,selectedTime){
+    const resRef:AngularFirestoreDocument<any>=this.afs.doc(`reservations/${doctorId}`);
+    const obj={
+      dates:{
+        [selectedDate]:{
+          [selectedTime]:"free"
+        }        
+      },
+    }
+    console.log(obj)
+    return resRef.set(obj,{merge:true});
+  }
 }

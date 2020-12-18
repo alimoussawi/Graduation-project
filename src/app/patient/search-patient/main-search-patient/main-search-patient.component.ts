@@ -34,7 +34,24 @@ export class MainSearchPatientComponent implements OnInit {
   specRadio: string;
   prices:number[]=[50,100,200,300,400,500];
   priceRadio:number;
-  cities:string[]=['Kyiv',`Kharkivs'ka oblast`,`Dnipropetrovs'ka oblast`,`Poltavs'ka oblast`,`L'vivs'ka oblast`]
+  cities:string[]=['Kyiv',`Kharkivs'ka oblast`,`Dnipropetrovs'ka oblast`,`Poltavs'ka oblast`,`L'vivs'ka oblast`,`Cherkas'ka oblast`,
+  `Chernihivs'ka oblast`,
+  `Chernivets'ka oblast`,
+  `Donets'ka oblast`,
+  `Ivano-Frankivs'ka oblast`,
+  `Khersons'ka oblast`,
+  `Khmel'nyts'ka oblast`,
+  `Kirovohrads'ka oblast`,
+  `Kyivs'ka oblast`,
+  `Luhans'ka oblast`,
+  `Mykolaivs'ka oblast`,
+  `Rivnens'ka oblast`,
+  `Sums'ka oblast`,
+  `Ternopil's'ka oblast`,
+  `Vinnyts'ka oblast`,
+  `Volyns'ka oblast`,
+  `Zaporiz'ka oblast`,
+  `Zhytomyrs'ka oblast`,]
   cityRadio:string;
   sorting:string[]=['asc','desc'];
   sortRadio:firebase.default.firestore.OrderByDirection;

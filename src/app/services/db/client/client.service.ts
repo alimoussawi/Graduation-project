@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Client } from '../../Client';
 import { AngularFirestore, AngularFirestoreCollection,AngularFirestoreDocument } from '@angular/fire/firestore';
 import { User } from '../../User';
+import { ClientReservation } from '../../ClientReservation';
 
 @Injectable({
   providedIn: 'root'
@@ -45,5 +46,19 @@ export class ClientService {
   updateClientPhoto(clientId:string,photoPath:string){
     const clientRef:AngularFirestoreDocument<Client>=this.afs.doc(`clients/${clientId}`);
     return clientRef.update({photoURL:photoPath});
+  }
+
+  getClientReservations(clientId){
+    const clientReservationsRef:AngularFirestoreCollection<ClientReservation>= this.afs.collection(`clients`)
+    .doc(`${clientId}`)
+    .collection(`reservations`,ref=>ref.where(`status`,'==',`waiting`));
+    return clientReservationsRef.valueChanges();
+  }
+  getClientReservationById(clientId,reservationId){
+    const clientReservationRef:AngularFirestoreDocument<ClientReservation>= this.afs.collection(`clients`)
+    .doc(`${clientId}`)
+    .collection(`reservations`)
+    .doc(`${reservationId}`);
+    return clientReservationRef.valueChanges();
   }
 }

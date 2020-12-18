@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {faReply} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-home-landing',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home-landing.component.scss']
 })
 export class HomeLandingComponent implements OnInit {
-
+  faReply=faReply;
   constructor() { }
 
   ngOnInit(): void {
