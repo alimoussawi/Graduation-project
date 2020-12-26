@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DoctorService } from 'src/app/services/db/doctor/doctor.service';
-import {faCalendarDay} from '@fortawesome/free-solid-svg-icons';
+import {faCalendarDay,faCalendarTimes} from '@fortawesome/free-solid-svg-icons';
 import { Doctor } from 'src/app/services/Doctor';
 import { from } from 'rxjs';
 import { Observable } from 'rxjs';
@@ -19,11 +19,13 @@ import { UserService } from 'src/app/services/db/user/user.service';
   styleUrls: ['./doctor-details.component.scss']
 })
 export class DoctorDetailsComponent implements OnInit {
+  pageLoading:boolean;
   userEmail:string;
   userName:string;
   userId:string;
   /*fa icons */
   faCalendarDay=faCalendarDay;
+  faCalendarTimes=faCalendarTimes;
   doctorId:string;
   doctor:Doctor;
   reservationsDates;
@@ -39,6 +41,7 @@ export class DoctorDetailsComponent implements OnInit {
   private stripe:Stripe
   paymentLoading:boolean=false;
   constructor(private auth:AuthService,private clientService:ClientService,private doctorService:DoctorService,private userService:UserService,private fns:AngularFireFunctions,private activeRoute:ActivatedRoute,private router:Router,private toastr:ToastrService) {
+    this.pageLoading=true;
     this.auth.user.subscribe(user=>{
       if(user){
         this.clientService.getClientByid(user.uid).subscribe(client=>{
@@ -62,7 +65,9 @@ export class DoctorDetailsComponent implements OnInit {
         this.getAfterTodayRes();
         console.log(this.today);}
       });
+      this.pageLoading=false; 
     });
+    
    }
 
   async ngOnInit() {
@@ -122,7 +127,6 @@ export class DoctorDetailsComponent implements OnInit {
         }
       });
     });
-    
   }
   getAfterTodayRes(){
     if(this.reservationsDates){

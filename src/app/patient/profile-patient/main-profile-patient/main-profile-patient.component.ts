@@ -16,6 +16,7 @@ import { stringify } from '@angular/compiler/src/util';
   styleUrls: ['./main-profile-patient.component.scss']
 })
 export class MainProfilePatientComponent implements OnInit {
+  pageLoading:boolean;
   /*font awesome icons*/
   faTimes = faTimes;
   faEdit = faEdit;
@@ -28,6 +29,7 @@ export class MainProfilePatientComponent implements OnInit {
   client: Client;
   userId: string;
   constructor(private storage: AngularFireStorage, private clientService: ClientService, authService: AuthService, private toastr: ToastrService, private formBuilder: FormBuilder) {
+    this.pageLoading=true;
     authService.user.subscribe(user => {
       if (user) {
         this.userId = user.uid;
@@ -42,6 +44,7 @@ export class MainProfilePatientComponent implements OnInit {
     this.createEditForm();
     setTimeout(() => {
       this.setDefaultValues();
+      this.pageLoading=false;
     }, 2000);
 
 

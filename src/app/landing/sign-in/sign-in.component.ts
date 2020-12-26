@@ -14,6 +14,7 @@ import { User } from "./../../services/User";
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent implements OnInit {
+  pageLoading:boolean;
   faFacebook=faFacebook;
   faGoogle=faGoogle;
   user:User;
@@ -21,9 +22,15 @@ export class SignInComponent implements OnInit {
   roles=['PATIENT','DOCTOR'];
 
   constructor(private authService:AuthService,private userService:UserService,private clientService:ClientService,private doctorService:DoctorService,private router:Router) {
+    this.pageLoading=true;
     this.authService.user.subscribe(user=>{
       this.user=user;  
-    },error=>console.log(error)
+      this.pageLoading=false;
+    },
+    error=>{
+      console.log(error);
+      this.pageLoading=false;
+    }
     );
    }
 
@@ -31,9 +38,14 @@ export class SignInComponent implements OnInit {
   }
   
   googleLogin(){
+    this.pageLoading=true;
     this.authService.googleSignIn().then(()=>{
       this.checkUserRole();
-    },(error)=>{console.log(error)});
+      this.pageLoading=false;
+
+    },(error)=>{
+      this.pageLoading=false;
+      console.log(error)});
   }  
   fbLogin(){
     this.authService.facebookSignIn().then(()=>{
@@ -55,6 +67,7 @@ export class SignInComponent implements OnInit {
       return this.user.role; 
     }
     else{return;}
+    
   }
  
   roleChangeHandler(event){

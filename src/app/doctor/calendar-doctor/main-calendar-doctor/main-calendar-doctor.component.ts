@@ -7,6 +7,7 @@ import { DoctorService } from 'src/app/services/db/doctor/doctor.service';
 import { Doctor } from 'src/app/services/Doctor';
 import { Reservation } from 'src/app/services/Reservation';
 import { User } from 'src/app/services/User';
+import { faCalendarWeek,faEdit,faTimes,faDatabase,faCalendarTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-main-calendar-doctor',
@@ -14,6 +15,14 @@ import { User } from 'src/app/services/User';
   styleUrls: ['./main-calendar-doctor.component.scss']
 })
 export class MainCalendarDoctorComponent implements OnInit {
+  /*fa icons*/
+  faCalendarWeek=faCalendarWeek;
+  faCalendarTimes=faCalendarTimes;
+  faEdit=faEdit;
+  faTimes=faTimes;
+  faDatabase=faDatabase;
+
+  pageLoading:boolean;
   availability: Availability = {};
   enableEdit: boolean = false;
   editLoading: boolean = false;
@@ -25,6 +34,7 @@ export class MainCalendarDoctorComponent implements OnInit {
   userId: string;
   reservationsDates;
   constructor(private doctorService: DoctorService, private authService: AuthService,private toastr:ToastrService) {
+    this.pageLoading=true;
     authService.user.subscribe(user => {
       if (user) {
         this.userId = user.uid;
@@ -67,6 +77,9 @@ export class MainCalendarDoctorComponent implements OnInit {
       let date = new Date(curr.setDate(first)).toISOString().slice(0, 10)
       this.week.push(date)
     }
+    setTimeout(()=>{
+      this.pageLoading=false;
+    },2000)
   }
 
 

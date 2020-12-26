@@ -1,4 +1,4 @@
-<div class="container">
+<div *ngIf="!pageLoading" class="container">
     <div class="row m-5">
         <div class="col-lg-4 col-md-12 col-sm-12 mb-5">
             <!--Card-->
@@ -35,6 +35,55 @@
   <!-- Card footer -->
 </mdb-card>
 <!--/.Card-->
+        </div>
+        <div *ngIf="doctor?.isVerified" class="col-lg-8 col-md-12 col-sm-12  d-flex justify-content-center">
+          <div class="profile-content">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Your Profile</h4>
+                    <br>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-user-information">
+                    <tbody>
+                    <tr>
+                        <td>Name:</td>
+                        <td>{{doctor?.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>Speciality:</td>
+                        <td>{{doctor?.speciality}}</td>
+                    </tr>
+                    <tr>
+                        <td>Email:</td>
+                        <td>{{doctor?.email}}</td>
+                    </tr>
+                    <tr>
+                      <td>Phone Number:</td>
+                      <td>{{doctor?.phoneNumber}}</td>
+                    </tr>
+                    <tr>
+                        <td>Fees</td>
+                        <td>{{doctor?.price}}. UAH</td>
+                    </tr>
+                    <tr>
+                      <td>Address</td>
+                      <td>{{doctor?.addressInfo?.address}}</td>
+                    </tr>
+                    <tr>
+                    <td>City</td>
+                    <td>{{doctor?.addressInfo?.city}}</td>
+                    </tr>
+                    <tr>
+                      <td>Country</td>
+                      <td>{{doctor?.addressInfo?.country}}</td>
+                      </tr>
+                    <!---->
+                    </tbody>
+                </table>
+            </div>
+        </div>
         </div>
         <div *ngIf="!doctor?.isVerified && doctor?.addressInfo?.address" class="col-lg-8 col-md-12 col-sm-12  d-flex justify-content-center">
           <div class="my-svg">
@@ -269,5 +318,19 @@
                 <button [disabled]="loading ||EditInfoForm.invalid||!termsCheck||!address" class="btn btn-primary" type="submit">Submit form</button>
               </form>
         </div>
+    </div>
+</div>
+<div  *ngIf="pageLoading">
+  <div class="sk-cube-grid">
+      <div class="sk-cube sk-cube1"></div>
+      <div class="sk-cube sk-cube2"></div>
+      <div class="sk-cube sk-cube3"></div>
+      <div class="sk-cube sk-cube4"></div>
+      <div class="sk-cube sk-cube5"></div>
+      <div class="sk-cube sk-cube6"></div>
+      <div class="sk-cube sk-cube7"></div>
+      <div class="sk-cube sk-cube8"></div>
+      <div class="sk-cube sk-cube9"></div>
+      <div class="text-primary font-weight-bold">LOADING</div>
     </div>
 </div>

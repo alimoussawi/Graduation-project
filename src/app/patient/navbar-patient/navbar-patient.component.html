@@ -25,11 +25,11 @@
     </ul>
     <!-- Links -->
 
-    <ul class="navbar-nav ml-auto nav-flex-icons">
+    <ul class="navbar-nav justify-content-center">
       <li  class="nav-item avatar dropdown " dropdown>
         <a dropdownToggle mdbWavesEffect type="button" class="nav-link waves-light" mdbWavesEffect>
           <img src="{{client?.photoURL||user?.photoURL}}" height="30" width="30" alt="" class="img-fluid rounded-circle z-depth-0"></a>
-        <div *dropdownMenu class="dropdown-menu  dropdown-primary" role="menu">
+        <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown-primary" role="menu">
           <a class="dropdown-item waves-light " mdbWavesEffect (click)="logout()">Log out</a>
         </div>
       </li>

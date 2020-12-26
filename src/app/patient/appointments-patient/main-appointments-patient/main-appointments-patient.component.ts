@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./main-appointments-patient.component.scss']
 })
 export class MainAppointmentsPatientComponent implements OnInit {
+  pageLoading:boolean;
   /* */
   faBell=faBell;
   /* */
@@ -22,11 +23,13 @@ export class MainAppointmentsPatientComponent implements OnInit {
   /* */
   today:Date=new Date;
   constructor(private auth:AuthService,private clientService:ClientService,private toastr:ToastrService,private router:Router) {
+    this.pageLoading=true;
     auth.user.subscribe(user=>{
       if(user){
         this.clientId=user.uid;
         this.clientService.getClientReservations(this.clientId).subscribe(reservation=>{
           this.clientReservations=reservation;
+          this.pageLoading=false;
         })
       }
     })
@@ -41,7 +44,7 @@ export class MainAppointmentsPatientComponent implements OnInit {
     let isReady=this.checkIfReady(meetingStartTime,meetingEndTime);
     if(isReady){
       this.toastr.success("allowed to enter");
-      this.router.navigate([`/patient/appointments/${meetingDate}_${meetingTime}`])
+      this.router.navigate([`/appointment/${meetingDate}_${meetingTime}`])
     }
     else{
       if(this.checkIfExpired(meetingEndTime)){

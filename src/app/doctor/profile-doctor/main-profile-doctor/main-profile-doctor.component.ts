@@ -1,5 +1,5 @@
 import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
-import { faChevronRight, faPersonBooth, faUserEdit } from '@fortawesome/free-solid-svg-icons';
+import { faChevronRight, faPersonBooth, fas, faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import { MapsAPILoader } from '@agm/core';
 import { DoctorService } from 'src/app/services/db/doctor/doctor.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
@@ -18,6 +18,7 @@ import { User } from 'src/app/services/User';
   styleUrls: ['./main-profile-doctor.component.scss']
 })
 export class MainProfileDoctorComponent implements OnInit {
+  pageLoading:boolean;
   /*font awesome icons*/
   faChevronRight = faChevronRight;
   faUserEdit = faUserEdit;
@@ -63,6 +64,7 @@ export class MainProfileDoctorComponent implements OnInit {
     'Physiotherapy and Sport Injuries','Plastic Surgery','Rheumatology','Spinal Surgery','Urology (Urinary System)','Vascular Surgery (Arteries and Vein Surgery)'];
   constructor(authService: AuthService, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, private doctorService: DoctorService,
     private formBuilder: FormBuilder, private storage: AngularFireStorage, private toastr: ToastrService) {
+    this.pageLoading=true;
     authService.user.subscribe(user => {
       if (user) {
         this.userId = user.uid;
@@ -84,8 +86,10 @@ export class MainProfileDoctorComponent implements OnInit {
       if (!this.doctor?.isVerified && this.doctor?.addressInfo?.address) {
         this.toastr.info("your profile is being reviewed by our team !, if you want to make changes contact our support team ", "",
           { positionClass: 'toast-bottom-full-width' ,disableTimeOut:true});
-      }
-    },1000)
+        }
+        this.pageLoading=false;
+      },1000)
+    
   }
 
   loadMap() {

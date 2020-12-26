@@ -1,12 +1,12 @@
 <div class="container mt-5">
-    <div class="row feature-1 align-items-center justify-content-center">
+    <div id="about" class="row feature-1 align-items-center justify-content-center">
         <div class="col-lg-6 col-md-6 col-sm-12 mb-5">
-            <h2 class="font-weight-bold greeting mb-2">Tele Medicine</h2>
-            <p class="text-justify">A place to connect you with the best doctors in town</p>
-            <a routerLink="/login" class="btn btn-primary m-2 mr-3">Join Now</a>
-            <a class="btn btn-secondary text-white">Download Our App</a>
+            <h1 class="font-weight-bold greeting mb-2">TeleLikar</h1>
+            <p class="text-justify">A place that connect you with the best doctors in town without leaving your door step</p>
+            <a routerLink="/login" class="btn btn-primary rounded-0 m-2 mr-3"><fa-icon class="mr-2" [icon]="faUserPlus"></fa-icon> Join Now</a>
+            <a class="btn btn-secondary rounded-0 text-white"><fa-icon class="mr-2" [icon]="faDownload"></fa-icon> Download App</a>
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-12 mt-2  d-flex justify-content-center">
+        <div class="col-lg-6 col-md-6 col-sm-12 mt-2 d-flex justify-content-center">
             <div class="my-svg">
                 <svg viewBox="0 0 502 627" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g id="doctors">
@@ -141,229 +141,96 @@
             </div>
         </div>
   </div>
-  <!--Section: Features v.3-->
-<section class="feature-2">
-
-    <!--Section heading-->
-    <h2 class="h1 py-5 font-weight-bold text-center">Why is it so great?</h2>
-    <!--Section description-->
-    <p class="px-5 mb-5 pb-3 lead grey-text text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-      sed do
-      eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      Ut enim ad minim veniam.</p>
-  
-    <!--Grid row-->
+<section id="why-us" class="feature-2">
+    <div class="row">
+      <div class="col-md-12 d-flex justify-content-center">
+          <h2 class="h1 py-5 font-weight-bold ">Why <span class="py-5 font-weight-bold">TeleLikar</span> ?</h2>
+      </div>
+    </div>
     <div class="row v1-box p-5">
-  
-      <!--Grid column-->
       <div class="col-lg-5 text-center text-lg-left">
         <img src="https://mdbootstrap.com/img/Photos/Others/screens-section.jpg" alt="" class="img-fluid z-depth-0">
       </div>
-      <!--Grid column-->
-  
-      <!--Grid column-->
+
       <div class="col-lg-7">
-  
-        <!--Grid row-->
         <div class="row pb-3">
           <div class="col-2 col-md-1">
-            <fa-icon [icon]="faReply"></fa-icon>
+            <fa-icon [icon]="faViruses" size="2x" [styles]="{'color':'#FF0056'}"></fa-icon>
           </div>
           <div class="col-10">
-            <h5 class="font-weight-bold text-left mb-3 dark-grey-text">Safety</h5>
-            <p class="grey-text text-left">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Reprehenderit
-              maiores nam, aperiam minima assumenda
-              deleniti hic.</p>
+            <h5 class="font-weight-bold text-left mb-3">Safety</h5>
+            <p class="text-justify">Social distancing helps limit opportunities to come in contact with contaminated surfaces and infected people outside,
+            stay safe and consult your doctor online.
+            </p>
           </div>
         </div>
-        <!--Grid row-->
-  
-        <!--Grid row-->
         <div class="row pb-3">
           <div class="col-2 col-md-1">
-            <fa-icon [icon]="faReply"></fa-icon>
+            <fa-icon [icon]="faHourglassHalf" size="2x" [styles]="{'color':'#FF0056'}"></fa-icon>
           </div>
           <div class="col-10">
-            <h5 class="font-weight-bold text-left mb-3 dark-grey-text">Technology</h5>
-            <p class="grey-text text-left">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Reprehenderit
-              maiores nam, aperiam minima assumenda
-              deleniti hic.</p>
+            <h5 class="font-weight-bold text-left mb-3 ">effectiveness</h5>
+            <p class="text-justify">Countless hours wasted in transportations to reach a doctor clinic and sitting in a waiting room can be saved now </p>
           </div>
         </div>
-        <!--Grid row-->
-  
-        <!--Grid row-->
+
         <div class="row pb-3">
           <div class="col-2 col-md-1">
-            <fa-icon [icon]="faReply"></fa-icon>
+            <fa-icon [icon]="faMoneyCheck" size="2x" [styles]="{'color':'#FF0056'}"></fa-icon>
           </div>
           <div class="col-10">
-            <h5 class="font-weight-bold text-left mb-3 dark-grey-text">Finance</h5>
-            <p class="grey-text text-left">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Reprehenderit
-              maiores nam, aperiam minima assumenda
-              deleniti hic.</p>
+            <h5 class="font-weight-bold text-left mb-3">economical</h5>
+            <p class="text-justify">a patient could save hours of time behind the wheel, miles driven and also travel costs that can be sometimes high through teleLikar</p>
           </div>
         </div>
-        <!--Grid row-->
-  
       </div>
-      <!--Grid column-->
-  
     </div>
-    <!--Grid row-->
-  
   </section>
-  <!--Section: Features v.3-->
 
-
-  <!-- Projects section v.3 -->
-<section class="my-5">
-
-    <!-- Section heading -->
-    <h2 class="h1-responsive font-weight-bold text-center my-5">Our best projects</h2>
-    <!-- Section description -->
-    <p class="grey-text text-center w-responsive mx-auto mb-5">Duis aute irure dolor in reprehenderit in
-      voluptate velit
-      esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-      occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit est laborum.</p>
-  
-    <!-- Grid row -->
+<section id="features" class="feature-3">
+   <h2 class="h1-responsive font-weight-bold text-center my-5"><span>TeleLikar</span> key features</h2>
+    <p class="grey-text text-center w-responsive mx-auto mb-5">Millions of people have changed their lives by using Telehealth services. With TeleLikar, you can access virtual care that’s always there.</p>
+    <hr>
     <div class="row">
-  
-      <!-- Grid column -->
-      <div class="col-lg-5 mb-lg-0 mb-5">
-        <!--Image-->
-        <img src="https://mdbootstrap.com/img/Photos/Others/images/83.jpg" alt="Sample project image" class="img-fluid rounded z-depth-1">
-      </div>
-      <!-- Grid column -->
-  
-      <!-- Grid column -->
       <div class="col-lg-7">
-  
-        <!-- Grid row -->
         <div class="row mb-3">
           <div class="col-md-1 col-2">
-        <!--    <mdb-icon far icon="smile" size="2x" class="blue-text"></mdb-icon>-->
-    </div>
+            <fa-icon [icon]="faSearchPlus" size="2x" [styles]="{'color':'#FF0056'}"></fa-icon>
+        </div>
           <div class="col-md-11 col-10">
-            <h5 class="font-weight-bold mb-3">Education</h5>
-            <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing. Reprehenderit maiores nam,
-              aperiam
-              minima elit assumenda
-              voluptate velit.</p>
+            <h5 class="font-weight-bold mb-3">Search</h5>
+            <p class="text-justify">Search for specialists using different attributes like speciality, location, examination fees, and more.</p>
           </div>
         </div>
-        <!-- Grid row -->
-  
-        <!-- Grid row -->
         <div class="row mb-3">
           <div class="col-md-1 col-2">
-        <!--    <mdb-icon far icon="smile" size="2x" class="blue-text"></mdb-icon>-->
-    </div>
+            <fa-icon [icon]="faBookMedical" size="2x" [styles]="{'color':'#FF0056'}"></fa-icon>
+          </div>
           <div class="col-md-11 col-10">
-            <h5 class="font-weight-bold mb-3">Technology</h5>
-            <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing. Reprehenderit maiores nam,
-              aperiam
-              minima elit assumenda
-              voluptate velit.</p>
+            <h5 class="font-weight-bold mb-3">Online booking</h5>
+            <p class="text-justify">you can schedule an appointment with the desired specialist and pay online all by using our Web platform or our Android App.</p>
           </div>
         </div>
-        <!-- Grid row -->
-  
-        <!-- Grid row -->
-        <div class="row">
-          <div class="col-md-1 col-2">
-        <!--    <mdb-icon far icon="smile" size="2x" class="blue-text"></mdb-icon>-->
-    </div>
-          <div class="col-md-11 col-10">
-            <h5 class="font-weight-bold mb-3">Finance</h5>
-            <p class="grey-text mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing. Reprehenderit maiores
-              nam,
-              aperiam minima elit assumenda
-              voluptate velit.</p>
-          </div>
-        </div>
-        <!-- Grid row -->
-  
-      </div>
-      <!-- Grid column -->
-  
-    </div>
-    <!-- Grid row -->
-  
-    <hr class="my-5">
-  
-    <!-- Grid row -->
-    <div class="row">
-  
-      <!-- Grid column -->
-      <div class="col-lg-7">
-  
-        <!-- Grid row -->
-        <div class="row mb-3">
-          <div class="col-md-1 col-2">
-        <!--    <mdb-icon far icon="smile" size="2x" class="blue-text"></mdb-icon>-->
-    </div>
-          <div class="col-md-11 col-10">
-            <h5 class="font-weight-bold mb-3">Marketing</h5>
-            <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing. Reprehenderit maiores nam,
-              aperiam
-              minima elit assumenda
-              voluptate velit.</p>
-          </div>
-        </div>
-        <!-- Grid row -->
-  
-        <!-- Grid row -->
-        <div class="row mb-3">
-          <div class="col-md-1 col-2">
-        <!--    <mdb-icon far icon="smile" size="2x" class="blue-text"></mdb-icon>-->
-    </div>
-          <div class="col-md-11 col-10">
-            <h5 class="font-weight-bold mb-3">Entertainment</h5>
-            <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing. Reprehenderit maiores nam,
-              aperiam
-              minima elit assumenda
-              voluptate velit.</p>
-          </div>
-        </div>
-        <!-- Grid row -->
-  
-        <!-- Grid row -->
         <div class="row mb-lg-0 mb-5">
           <div class="col-md-1 col-2">
-        <!--    <mdb-icon far icon="smile" size="2x" class="blue-text"></mdb-icon>-->
+            <fa-icon [icon]="faVideo" size="2x" [styles]="{'color':'#FF0056'}"></fa-icon>
           </div>
           <div class="col-md-11 col-10">
-            <h5 class="font-weight-bold mb-3">Communication</h5>
-            <p class="grey-text mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing. Reprehenderit maiores
-              nam,
-              aperiam minima elit assumenda
-              voluptate velit.</p>
+            <h5 class="font-weight-bold mb-3">Video calls</h5>
+            <p class="text-justify">Get in touch with one of our doctors and get treated without having to leave your home</p>
           </div>
         </div>
-        <!-- Grid row -->
   
       </div>
-      <!-- Grid column -->
-  
-      <!-- Grid column -->
       <div class="col-lg-5">
-        <!--Image-->
         <img src="https://mdbootstrap.com/img/Photos/Others/images/82.jpg" alt="Sample project image" class="img-fluid rounded z-depth-1">
       </div>
-      <!-- Grid column -->
-  
     </div>
-    <!-- Grid row -->
-  
+ 
   </section>
-  <!-- Projects section v.3 -->
+  
 </div>
-<div class="info-content2">
+<section class="info-content2">
     <div class="container">
         <div class="row text-center">
             <div class="col-md-12">
@@ -373,7 +240,83 @@
             </div>
         </div>
     </div>
+</section>
+
+<section id="features2" class="feature-4 text-center">
+  <div class="container">
+  <h2 class="h1 py-5 font-weight-bold mb-5">Start using <span class="span1">TeleLikar</span> with  <span class="span2">Three</span> simple steps </h2>
+   <div class="row text-left">
+    <div class="col-md-4 mb-4">
+      <div class="col-1 col-md-2 float-left">
+        <fa-icon [icon]="faUserPlus" size="2x" [styles]="{'color':'#007bff'}"></fa-icon>
+      </div>
+      <div class="col-10 col-md-9 col-lg-10 float-right">
+        <h4 class="font-weight-bold">Sign Up</h4>
+        <p class="text-justify">Setting Up a new account will take seconds, use your social accounts whether it is Google or Facebook</p>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="col-1 col-md-2 float-left">
+        <fa-icon [icon]="faCalendarPlus" size="2x" [styles]="{'color':'#007bff'}"></fa-icon>
+      </div>
+      <div class="col-10 col-md-9 col-lg-10 float-right">
+        <h4 class="font-weight-bold">Book an appointment</h4>
+        <p class="text-justify">Scheduling an appointment was never easier, with our App you can schedule an appointment and pay on the go</p>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="col-1 col-md-2 float-left">
+        <fa-icon [icon]="faVideo" size="2x" [styles]="{'color':'#007bff'}"></fa-icon>
+      </div>
+      <div class="col-10 col-md-9 col-lg-10 float-right">
+        <h4 class="font-weight-bold">Get Treated</h4>
+        <p class="text-justify">Join the booked appointment and start a video call with your doctor with the easy virtual doctor visit</p>
+      </div>
+    </div>
+  </div>
+  <div class="row d-flex justify-content-center">
+    <a class="btn btn-primary text-white rounded-0">Join Now</a>
+  </div>
 </div>
+</section>
 
+<!-- Footer -->
+<footer id="contact" class="page-footer font-small pink pt-4">
 
+  <!-- Footer Elements -->
+  <div class="container">
 
+      <ul class="list-unstyled list-inline text-center">
+          <li class="list-inline-item">
+            <a class="mx-1">
+              <fa-icon [icon]="faInstagram" size="3x"></fa-icon>
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a class="mx-1" >
+              <fa-icon [icon]="faLinkedin" size="3x"></fa-icon>
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a class="mx-1">
+              <fa-icon [icon]="faGooglePlus" size="3x"></fa-icon>
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a class="mx-1">
+              <fa-icon [icon]="faGithub" size="3x"></fa-icon>
+            </a>
+          </li>
+        </ul>
+
+  </div>
+  <!-- Footer Elements -->
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2020 Copyright:
+    <a href="https://mdbootstrap.com/"> MDBootstrap.com</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->

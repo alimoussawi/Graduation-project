@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { MapsAPILoader } from '@agm/core';
-import { faFileSignature, faUserMd,faMale,faFemale,faCity,faVenusMars,faMoneyBill,faFilter } from '@fortawesome/free-solid-svg-icons';
+import { faFileSignature, faUserMd,faMale,faFemale,faCity,faVenusMars,faMoneyBill,faUserNurse,faMapMarkedAlt,faHospitalUser } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { DoctorService } from 'src/app/services/db/doctor/doctor.service';
 import { Doctor } from 'src/app/services/Doctor';
@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./main-search-patient.component.scss']
 })
 export class MainSearchPatientComponent implements OnInit {
+  pageLoading:boolean;
   /* location variables*/
   latitude;
   longitude;
@@ -21,6 +22,9 @@ export class MainSearchPatientComponent implements OnInit {
   address;
   /*font awesome icons */
   faFileSignature = faFileSignature;
+  faMapMarkedAlt=faMapMarkedAlt;
+  faUserNurse=faUserNurse;
+  faHospitalUser=faHospitalUser;
   faUserMd = faUserMd;
   faCity=faCity;
   faVenusMars=faVenusMars;
@@ -92,12 +96,14 @@ export class MainSearchPatientComponent implements OnInit {
 
   
   doctors: any[];
-  constructor(private afs:AngularFirestore,private doctorService: DoctorService,private mapsAPILoader: MapsAPILoader, private toastr: ToastrService,private router:Router) { }
+  constructor(private afs:AngularFirestore,private doctorService: DoctorService,private mapsAPILoader: MapsAPILoader, private toastr: ToastrService,private router:Router) {
+    this.pageLoading=true;
+   }
 
   ngOnInit(): void {
     this.mapsAPILoader.load().then(() => {
       this.setCurrentLocation();
-
+      this.pageLoading=false;
     });
   }
 
@@ -107,9 +113,6 @@ export class MainSearchPatientComponent implements OnInit {
       return;
     }
     else {
-    //  this.doctorService.getDoctorsBySpeciality().subscribe(doctors=>{
-      //  this.tableData=doctors;
-    //  });
      this.loadItems(this.specRadio,this.cityRadio,this.priceRadio);
     }
   }

@@ -1,4 +1,4 @@
-<div *ngIf="!paymentLoading" class="container-fluid">
+<div *ngIf="!paymentLoading && !pageLoading" class="container-fluid">
   <div class="row mt-5 p-5">
     <div class="col-lg-4 col-md-4 col-sm-12">
       <div class="card booking-card mb-5">
@@ -46,10 +46,9 @@
           <p class="card-text">{{doctor?.bio}}</p>
         </div>
         <!-- Button -->
-        <a href="#" class="btn btn-flat deep-purple-text p-1 mx-0 mb-0">more</a>
       </div>
     </div>
-    <div *ngIf="reservationsDates" class="col-lg-8 col-md-8 col-sm-12 text-center">
+    <div *ngIf="reservationsDates &&afterTodayReservationDates.size!=0 " class="col-lg-8 col-md-8 col-sm-12 text-center">
       <accordion [isAnimated]="true">
         <accordion-group *ngFor="let res of afterTodayReservationDates|keyvalue" heading="{{res.key|date}}" [isOpen]="true">
                     <div *ngIf="res.value.size>0" class="row">
@@ -67,8 +66,9 @@
         </accordion-group>
       </accordion>
     </div>
-    <div *ngIf="!reservationsDates" class="col-lg-8 col-md-8 col-sm-12 text-center">
-        <h2 class="text-secondary">No available appointments</h2>
+    <div *ngIf="!reservationsDates ||afterTodayReservationDates.size==0 " class="col-lg-8 col-md-8 col-sm-12 text-center">
+      <fa-icon [icon]="faCalendarTimes" size="2x" [styles]="{'color': 'pink'}"></fa-icon>  
+      <h2 class="text-secondary">No available appointments</h2>
     </div>
     <!-- Card -->
   </div>
@@ -172,7 +172,7 @@
   </div>
 </div>
 </div>
-<div *ngIf="paymentLoading">
+<div *ngIf="paymentLoading ||pageLoading">
   <div class="sk-cube-grid">
     <div class="sk-cube sk-cube1"></div>
     <div class="sk-cube sk-cube2"></div>

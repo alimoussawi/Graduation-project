@@ -1,9 +1,10 @@
-<div class="container mt-5" >
+<div *ngIf="!pageLoading" class="container mt-5" >
   <tabset class="m-5">
     <tab class="speciality-tab" heading="Search By Speciality" #nameTab="tab" >
+      <ng-template tabHeading><fa-icon class="m-2" [icon]="faHospitalUser"></fa-icon></ng-template>
       <div class="row m-5">
         <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
-          <button (click)="basicModal.show()" class="btn btn-primary rounded-0 mb-3">Choose A Speciality</button>
+          <a (click)="basicModal.show()" class="btn btn-primary text-white rounded-0 mb-3"><fa-icon class="mr-2" [icon]="faUserNurse"></fa-icon> Choose A Speciality</a>
           <div
             mdbModal
             #basicModal="mdbModal"
@@ -125,7 +126,7 @@
                 </div>
 
                 <!-- Card content -->
-                <div class="card-body" style="min-height: 400px;">
+                <div class="card-body" style="min-height: 200px;">
                   <!-- Title -->
                   <h4 class="card-title font-weight-bold">
                     <a>{{ doctor?.name }}</a>
@@ -162,37 +163,17 @@
                   </p>
                   <hr class="my-4" />
                   <p class="lead">
-                    <strong class="font-weight-bold">Available</strong>
+                    
+                    <strong class="font-weight-bold"><fa-icon class="mr-2" [icon]="faMapMarkedAlt" [styles]="{'color': 'pink'}" size="2x"></fa-icon> Address:</strong>
                   </p>
                   <div class="row">  
-                    <div class="col-lg-6 col-md-6 col-sm-12">
-                  <div class="chip p-1 deep-purple rounded white-text mr-1 mb-1">
-                        5:30PM
-                      </div>
-                    </div>
-
-                    <div class="col-lg-6 col-md-6 col-sm-12">
-
-                      <div class="chip p-1 deep-purple rounded white-text mr-1 mb-1">
-                        7:30PM
-                      </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12">
-                      <div class="chip p-1 deep-purple rounded white-text mr-1 mb-1">
-                        8:00PM
-                      </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12">
-                      <div class="chip p-1 deep-purple rounded white-text mr-1 mb-1">
-                        9:00PM
-                      </div>
-                    </div>
+                      <p class="p-2 m-2">{{doctor?.addressInfo?.address}}</p>
                     </div>
                     </div>
                   <!-- Button -->
                   <a
-                    href="#"
-                    class="btn btn-flat deep-purple-text p-1 mx-0 mb-0"
+                    (click)="cardClick(doctor?.id);"
+                    class="btn btn-block pink rounded-0 text-white p-1 mx-0 mb-0"
                     >more</a
                   >
               </div>
@@ -220,9 +201,22 @@
       </div>
     </tab>
 
-    <tab heading="Search By Name" #specialityTab="tab">
-      <ng-template tabHeading><fa-icon class="m-2" [icon]="faFileSignature"></fa-icon></ng-template>
-  
+    <tab heading="Search By Distance" #specialityTab="tab">
+      <ng-template tabHeading><fa-icon class="m-2" [icon]="faMapMarkedAlt"></fa-icon></ng-template>
     </tab>
   </tabset>
+</div>
+<div *ngIf="pageLoading">
+  <div class="sk-cube-grid">
+      <div class="sk-cube sk-cube1"></div>
+      <div class="sk-cube sk-cube2"></div>
+      <div class="sk-cube sk-cube3"></div>
+      <div class="sk-cube sk-cube4"></div>
+      <div class="sk-cube sk-cube5"></div>
+      <div class="sk-cube sk-cube6"></div>
+      <div class="sk-cube sk-cube7"></div>
+      <div class="sk-cube sk-cube8"></div>
+      <div class="sk-cube sk-cube9"></div>
+      <div class="text-primary font-weight-bold">LOADING</div>
+    </div>
 </div>

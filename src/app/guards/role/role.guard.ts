@@ -11,8 +11,6 @@ import { User } from 'src/app/services/User';
 export class RoleGuard implements CanActivate{
   constructor(private authService:AuthService,private router:Router){
   }
-
-
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
@@ -32,7 +30,20 @@ export class RoleGuard implements CanActivate{
          }
        });
      });  
-    
-    }
-    
+  }
+
+  canLoad(route: Route, segments: UrlSegment[]): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+    return new Promise((resolve,reject)=>{
+      this.authService.user.subscribe(user=>{
+        if(!user || !user.role){
+          this.router.navigate(['/login']);
+          resolve(false);
+        }
+        else if (user && (user.role==='DOCTOR'||user.role==='PATIENT')){
+          resolve(true);
+        }
+      });
+    });  
+  }
+  
 }

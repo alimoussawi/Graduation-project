@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./main-appointments-doctor.component.scss']
 })
 export class MainAppointmentsDoctorComponent implements OnInit {
+pageLoading:boolean;
 /* */
 faBell=faBell;
 /* */
@@ -21,6 +22,7 @@ doctorReservations:DoctorReservation[];
 /* */
 today:Date=new Date;
 constructor(private auth:AuthService,private doctorService:DoctorService,private toastr:ToastrService,private router:Router) {
+  this.pageLoading=true;
   auth.user.subscribe(user=>{
     if(user){
       this.doctorId=user.uid;
@@ -28,11 +30,12 @@ constructor(private auth:AuthService,private doctorService:DoctorService,private
         this.doctorReservations=reservation;
       })
     }
+    this.pageLoading=false;
   })
  }
 
 ngOnInit(): void {
-  
+      
 }
 todayClick(meetingDate,meetingTime){
   let meetingStartTime=new Date(`${this.today.toDateString()} ${meetingTime.split('-')[0]}`)
@@ -40,7 +43,7 @@ todayClick(meetingDate,meetingTime){
   let isReady=this.checkIfReady(meetingStartTime,meetingEndTime);
   if(isReady){
     this.toastr.success("allowed to enter");
-    this.router.navigate([`/doctor/appointments/${meetingDate}_${meetingTime}`])
+    this.router.navigate([`appointment/${meetingDate}_${meetingTime}`])
   }
   else{
     if(this.checkIfExpired(meetingEndTime)){

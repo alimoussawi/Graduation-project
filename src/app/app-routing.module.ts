@@ -6,7 +6,8 @@ import { DoctorGuard } from "./guards/doctor/doctor.guard";
 const routes: Routes = [
   {path:'',loadChildren: () => import(`./landing/landing.module`).then(m => m.LandingModule)},
   {path:'patient',canLoad:[PatientGuard],loadChildren:()=>import(`./patient/patient.module`).then(m=>m.PatientModule)},
-  {path:'doctor',canLoad:[DoctorGuard],loadChildren:()=>import(`./doctor/doctor.module`).then(m=>m.DoctorModule)}
+  {path:'doctor',canLoad:[DoctorGuard],loadChildren:()=>import(`./doctor/doctor.module`).then(m=>m.DoctorModule)},
+  {path:'appointment',canLoad:[RoleGuard],loadChildren:()=>import(`./appointment/appointment.module`).then(m=>m.AppointmentModule)}
 ];
 
 @NgModule({
