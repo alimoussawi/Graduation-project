@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DoctorService } from 'src/app/services/db/doctor/doctor.service';
-import {faCalendarDay,faCalendarTimes} from '@fortawesome/free-solid-svg-icons';
+import {faCalendarDay,faCalendarTimes,faMapMarkedAlt} from '@fortawesome/free-solid-svg-icons';
 import { Doctor } from 'src/app/services/Doctor';
 import { from } from 'rxjs';
 import { Observable } from 'rxjs';
@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { ClientService } from 'src/app/services/db/client/client.service';
 import { UserService } from 'src/app/services/db/user/user.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-doctor-details',
@@ -26,6 +27,8 @@ export class DoctorDetailsComponent implements OnInit {
   /*fa icons */
   faCalendarDay=faCalendarDay;
   faCalendarTimes=faCalendarTimes;
+  faMapMarkedAlt=faMapMarkedAlt;
+  /* */
   doctorId:string;
   doctor:Doctor;
   reservationsDates;
@@ -40,7 +43,7 @@ export class DoctorDetailsComponent implements OnInit {
   /*stripe */
   private stripe:Stripe
   paymentLoading:boolean=false;
-  constructor(private auth:AuthService,private clientService:ClientService,private doctorService:DoctorService,private userService:UserService,private fns:AngularFireFunctions,private activeRoute:ActivatedRoute,private router:Router,private toastr:ToastrService) {
+  constructor(private auth:AuthService,private clientService:ClientService,private doctorService:DoctorService,private userService:UserService,private fns:AngularFireFunctions,private activeRoute:ActivatedRoute,private router:Router,private toastr:ToastrService,private http: HttpClient) {
     this.pageLoading=true;
     this.auth.user.subscribe(user=>{
       if(user){
@@ -67,8 +70,7 @@ export class DoctorDetailsComponent implements OnInit {
       });
       this.pageLoading=false; 
     });
-    
-   }
+  }
 
   async ngOnInit() {
     this.stripe = await loadStripe(environment.stripe.testKey);
@@ -165,8 +167,9 @@ export class DoctorDetailsComponent implements OnInit {
       console.log(res);
       if (res.result === 'SUCCESSFUL') {
         this.toastr.success("payment succuss ,check your reservations")
+        this.sendNotification();
         this.doctorService.updateReservations(this.doctorId,this.selectedDate,this.selectedTime).then(()=>{
-          this.userService.createClientDoctorReservation(this.doctorId,this.doctor.name,this.userId,this.userName,this.selectedDate,this.selectedTime)
+          this.userService.createClientDoctorReservation(this.doctorId,this.doctor.name,this.userId,this.userName,this.selectedDate,this.selectedTime,this.doctor.speciality,this.doctor.price)
           .then(()=>{
             this.paymentLoading=false;
             this.router.navigate(['/patient/appointments'])
@@ -191,7 +194,22 @@ export class DoctorDetailsComponent implements OnInit {
 onPaymentModalClose(event){
   this.doctorService.makeReservationFree(this.doctorId,this.selectedDate,this.selectedTime);
 }
-  testUpdate(){
-    this.doctorService.updateReservations(this.doctorId,this.selectedDate,this.selectedTime);
+
+
+  sendNotification(){
+    let headers = new HttpHeaders().set("Content-Type", "application/json")
+                    .set("Authorization", "key=AAAAM0LGdEg:APA91bEZ8GnmSGFbjklECTpwnPlh6n1z9NA3Vw-F_owF6o441fTsslqpB-2O7Kh2TpB4Sb_z7C1IJcYj1mYim-h2ifwsb5kp6JkR0LjQkobzyxwx-OFNlpzTX3MdVxJEMdd8S-aQiT0f")
+        const data={
+            data:{
+               title:"New Booking",
+               content:`You have a new booking on ${this.selectedDate} at ${this.selectedTime}`,
+              activityName:"booking",
+              role:"DOCTOR"
+              
+            },
+            to: `/topics/${this.doctorId}`
+        }
+        this.http.post<any>('https://fcm.googleapis.com/fcm/send',data,{ headers }).subscribe();
   }
+
 }

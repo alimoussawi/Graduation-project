@@ -20,12 +20,16 @@ export class UserService {
     const userRef:AngularFirestoreDocument<User>=this.afs.doc(`users/${user.uid}`);
     return userRef.update({isVerified:false});
   }
-  createClientDoctorReservation(doctorId,doctorName,clientId,clientName,selectedDate,selectedTime){
+  createClientDoctorReservation(doctorId,doctorName,clientId,clientName,selectedDate,selectedTime,speciality:string,price:number){
+    let createdAtTimeStamp=Date.parse(`${selectedDate} ${selectedTime.split('-')[0]}`)
     const clientResRef:AngularFirestoreDocument<ClientReservation>=this.afs.doc(`clients/${clientId}/reservations/${selectedDate}_${selectedTime}`);
     const doctorResRef:AngularFirestoreDocument<DoctorReservation>=this.afs.doc(`doctors/${doctorId}/reservations/${selectedDate}_${selectedTime}`);
     const clientReservation:ClientReservation={
       doctorId:doctorId,
       doctorName:doctorName,
+      createdAt:createdAtTimeStamp,
+      price:price,
+      speciality:speciality,
       date:selectedDate,
       time:selectedTime,
       status:"waiting"
@@ -33,6 +37,7 @@ export class UserService {
     const doctorReservation:DoctorReservation={
       clientId:clientId,
       clientName:clientName,
+      createdAt:createdAtTimeStamp,
       date:selectedDate,
       time:selectedTime,
       status:"waiting"

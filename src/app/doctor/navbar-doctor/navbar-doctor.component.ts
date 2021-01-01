@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {faIdCard,faSearch,faNotesMedical,faCalendarDay,faSignOutAlt} from '@fortawesome/free-solid-svg-icons';
+import {faIdCard,faCalendarCheck,faNotesMedical,faCalendarDay,faSignOutAlt} from '@fortawesome/free-solid-svg-icons';
 import { first } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { DoctorService } from 'src/app/services/db/doctor/doctor.service';
@@ -15,7 +15,7 @@ import { User } from 'src/app/services/User';
 export class NavbarDoctorComponent implements OnInit {
    /*font awesome icons*/
    faIdCard=faIdCard;
-   faSearch=faSearch;
+   faCalendarCheck=faCalendarCheck;
    faNotesMedical=faNotesMedical;
    faCalendarDay=faCalendarDay;
    faSignOutAlt=faSignOutAlt;

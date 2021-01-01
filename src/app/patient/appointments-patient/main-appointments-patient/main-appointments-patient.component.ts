@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faBell } from '@fortawesome/free-solid-svg-icons';
+import { faBell,faCalendarTimes } from '@fortawesome/free-solid-svg-icons';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { ClientReservation } from 'src/app/services/ClientReservation';
@@ -17,6 +17,7 @@ export class MainAppointmentsPatientComponent implements OnInit {
   pageLoading:boolean;
   /* */
   faBell=faBell;
+  faCalendarTimes=faCalendarTimes;
   /* */
   clientId:string;
   clientReservations:ClientReservation[];

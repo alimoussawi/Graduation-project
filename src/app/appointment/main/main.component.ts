@@ -9,6 +9,7 @@ import { DoctorService } from 'src/app/services/db/doctor/doctor.service';
 import * as moment from 'moment';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { User } from 'src/app/services/User';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-main',
@@ -43,7 +44,7 @@ export class MainComponent implements OnInit,OnDestroy {
   uid:number=0;
   
   currentUser:User;
-  constructor(private auth:AuthService,private doctorService:DoctorService,private clientService:ClientService,private fns:AngularFireFunctions,private router:Router,private activeRoute:ActivatedRoute,private ngxAgoraService:NgxAgoraService,private modalService: BsModalService) {
+  constructor(private auth:AuthService,private doctorService:DoctorService,private clientService:ClientService,private fns:AngularFireFunctions,private router:Router,private activeRoute:ActivatedRoute,private ngxAgoraService:NgxAgoraService,private modalService: BsModalService,private toastr:ToastrService) {
     auth.user.subscribe(user=>{
       if(user){
         this.currentUser=user;
@@ -300,12 +301,19 @@ declineEndCall(){
   this.modalRef.hide();
 }
 ngOnDestroy(): void {
-
+  if(this.currentUser.role==='DOCTOR' &&this.joinClicked){
+    this.toastr.info("meeting has been terninated");
+    this.terminateMeeting();
+  }
+  if(this.agoraClient){
   this.agoraClient.leave(()=>{
     this.localStream.stop((error)=>{console.log(error+"  already left")});
     this.localStream.close();
   });
-
+  }
 }
-
+terminateMeeting(){
+  this.doctorService.terminateMeeting(this.fnDoctorId,this.meetingId);
+  this.clientService.terminateMeeting(this.fnClientId,this.meetingId);
+}
 }

@@ -43,9 +43,19 @@
           <p class="mb-2">{{doctor?.price}}</p>
           <!-- Text -->
           <hr class="my-4" />
-          <p class="card-text">{{doctor?.bio}}</p>
-        </div>
-        <!-- Button -->
+          <p class="card-text">
+            {{ doctor?.bio }}
+          </p>
+          <hr class="my-4" />
+          <p class="lead">
+            
+            <strong class="font-weight-bold"><fa-icon class="mr-2" [icon]="faMapMarkedAlt" [styles]="{'color': 'pink'}" size="2x"></fa-icon> Address:</strong>
+          </p>
+          <div class="row">  
+              <p class="p-2 m-2">{{doctor?.addressInfo?.address}}</p>
+            </div>
+            </div>
+         
       </div>
     </div>
     <div *ngIf="reservationsDates &&afterTodayReservationDates.size!=0 " class="col-lg-8 col-md-8 col-sm-12 text-center">
@@ -53,7 +63,7 @@
         <accordion-group *ngFor="let res of afterTodayReservationDates|keyvalue" heading="{{res.key|date}}" [isOpen]="true">
                     <div *ngIf="res.value.size>0" class="row">
                       <div *ngFor="let time of res.value|keyvalue" class="col-lg-6 col-md-6 col-sm-12">
-                        <div (click)="timeClick(res.key,time.key,time.value);basicModal.show()"
+                        <div (click)="timeClick(res.key,time.key,time.value);basicModal.show();"
                           class="chip p-1 deep-purple rounded white-text mr-1 mb-1"
                         >
                           {{time.key}}

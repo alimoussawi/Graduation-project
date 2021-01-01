@@ -1,5 +1,5 @@
 <div  *ngIf="!pageLoading" class="container mt-5 p-5">
-    <div class="row">
+    <div *ngIf="clientReservations?.length" class="row">
         <div *ngFor="let res of clientReservations" class="col-lg-6 col-md-6 col-sm-12 mb-5">
             <div class="card border p-3 card-1">
                 <div class="info d-flex justify-content-between align-items-center">
@@ -25,6 +25,13 @@
                     <div class="group d-flex flex-column"> <span class="font-weight-bold">Date and Time:</span> <small>{{res.date}}</small> </div> <small>{{res.time}}</small>
                 </div>
             </div>
+        </div>
+    </div>
+    <div *ngIf="!clientReservations?.length" class="row">
+        <div class="col lg-12 md-12 sm-12 text-center">
+            <fa-icon [icon]="faCalendarTimes" size="5x" [styles]="{'color': 'pink'}"></fa-icon>  
+            <h2 class="text-secondary mt-5">No Reservations Yet</h2>
+
         </div>
     </div>
 </div>

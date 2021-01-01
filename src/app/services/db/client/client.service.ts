@@ -51,7 +51,7 @@ export class ClientService {
   getClientReservations(clientId){
     const clientReservationsRef:AngularFirestoreCollection<ClientReservation>= this.afs.collection(`clients`)
     .doc(`${clientId}`)
-    .collection(`reservations`,ref=>ref.where(`status`,'==',`waiting`));
+    .collection(`reservations`,ref=>ref.where(`status`,'==',`waiting`).orderBy('createdAt'));
     return clientReservationsRef.valueChanges();
   }
   getClientReservationById(clientId,reservationId){
@@ -60,5 +60,16 @@ export class ClientService {
     .collection(`reservations`)
     .doc(`${reservationId}`);
     return clientReservationRef.valueChanges();
+  }
+  terminateMeeting(clientId:string,meetingId:string){
+    const meeting:ClientReservation={
+     status:"terminated" 
+    }
+    const clientReservationRef:AngularFirestoreDocument<ClientReservation>= this.afs.collection(`clients`)
+    .doc(`${clientId}`)
+    .collection(`reservations`)
+    .doc(`${meetingId}`);
+    ;
+    return clientReservationRef.set(meeting,{merge:true});
   }
 }

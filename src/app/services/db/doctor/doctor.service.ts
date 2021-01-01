@@ -94,17 +94,7 @@ export class DoctorService {
     return doctorRef.update(doctorInfo);
   }
 
-  getDoctorsBySpeciality(){
-      const doctorsRef:AngularFirestoreCollection<Doctor>=this.afs.collection(`doctors`,ref=>ref
-    .limit(5)
-    .where(`speciality`,'==',`IVF and Infertility`)
-    .where(`addressInfo.city`,'==',`Kyiv`)
-    .where(`price`,'<=', 1000)
-    .where(`gender`,'==',`Male`)
-    .orderBy('price','asc'));
-  
-    return doctorsRef.valueChanges();
-  }
+ 
 
   updateAvailability(userId:String,availability:Availability){
     const doctorRef:AngularFirestoreDocument<Doctor>=this.afs.doc(`doctors/${userId}`);
@@ -149,7 +139,7 @@ export class DoctorService {
   getDoctorReservations(doctorId){
     const doctorReservationsRef:AngularFirestoreCollection<DoctorReservation>= this.afs.collection(`doctors`)
     .doc(`${doctorId}`)
-    .collection(`reservations`,ref=>ref.where(`status`,'==',`waiting`));
+    .collection(`reservations`,ref=>ref.where(`status`,'==',`waiting`).orderBy('createdAt'));
     return doctorReservationsRef.valueChanges();
   }
   getDoctoreservationById(doctorId,reservationId){
@@ -183,5 +173,17 @@ export class DoctorService {
     }
     console.log(obj)
     return resRef.set(obj,{merge:true});
+  }
+
+  terminateMeeting(doctorId:string,meetingId:string){
+    const meeting:DoctorReservation={
+     status:"terminated" 
+    }
+    const doctorReservationRef:AngularFirestoreDocument<DoctorReservation>= this.afs.collection(`doctors`)
+    .doc(`${doctorId}`)
+    .collection(`reservations`)
+    .doc(`${meetingId}`);
+    ;
+    return doctorReservationRef.set(meeting,{merge:true});
   }
 }

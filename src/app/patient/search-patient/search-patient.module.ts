@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule }   from '@angular/forms';
-
+import { HttpClientModule } from '@angular/common/http';
 import { SearchPatientRoutingModule } from './search-patient-routing.module';
 import { MainSearchPatientComponent } from './main-search-patient/main-search-patient.component';
 // MDB Angular Pro
@@ -20,6 +20,7 @@ import { DoctorDetailsComponent } from './doctor-details/doctor-details.componen
     FormsModule,
     SearchPatientRoutingModule,
     AccordionModule,
+    HttpClientModule,
     TabsModule,
     ModalModule,
     ButtonsModule, WavesModule, CardsModule,
