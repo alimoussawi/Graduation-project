@@ -54,6 +54,12 @@ export class ClientService {
     .collection(`reservations`,ref=>ref.where(`status`,'==',`waiting`).orderBy('createdAt'));
     return clientReservationsRef.valueChanges();
   }
+  getClientHistory(clientId){
+    const clientReservationsRef:AngularFirestoreCollection<ClientReservation>= this.afs.collection(`clients`)
+    .doc(`${clientId}`)
+    .collection(`reservations`,ref=>ref.where(`status`,'==',`terminated`).orderBy('createdAt'));
+    return clientReservationsRef.valueChanges();
+  }
   getClientReservationById(clientId,reservationId){
     const clientReservationRef:AngularFirestoreDocument<ClientReservation>= this.afs.collection(`clients`)
     .doc(`${clientId}`)

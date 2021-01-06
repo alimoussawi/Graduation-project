@@ -165,7 +165,7 @@
                   <div class="col-md-4 mb-3">
                     <pre class="text-success font-weight-bold">Name*</pre>
                     <input formControlName="name" type="text" class="form-control" placeholder="Name" >
-                    <div *ngIf="h.name.errors">
+                    <div *ngIf="h.name.errors &&formSubmitted">
                       <div *ngIf="h.name.errors.required" class="text-danger">
                         name is required
                       </div>
@@ -180,7 +180,7 @@
                   <div class="col-md-4 mb-3">
                     <pre class="text-success font-weight-bold">Phone Number*</pre>
                     <input formControlName="phoneNumber" type="text" class="form-control" placeholder="Phone Number" >
-                    <div *ngIf="h.phoneNumber.errors">
+                    <div *ngIf="h.phoneNumber.errors &&formSubmitted">
                       <div *ngIf="h.phoneNumber.errors.required" class="text-danger">
                         phone is required
                       </div>
@@ -195,7 +195,7 @@
                   <div class="col-md-4 mb-3">
                     <pre class="text-success font-weight-bold">Email*</pre>                      
                       <input formControlName="email" type="text" class="form-control" placeholder="Email" >
-                      <div *ngIf="h.email.errors">
+                      <div *ngIf="h.email.errors &&formSubmitted">
                         <div *ngIf="h.email.errors.required" class="text-danger">
                           email is required
                         </div>
@@ -211,7 +211,7 @@
                       <select formControlName="speciality" placeholder="speciality" class="browser-default custom-select">
                           <option *ngFor="let spec of specialities" value="{{spec}}">{{spec}}</option>
                       </select>
-                      <div *ngIf="h.speciality.errors">
+                      <div *ngIf="h.speciality.errors &&formSubmitted">
                         <div *ngIf="h.speciality.errors.required" class="text-danger">
                           speciality is required
                         </div>
@@ -223,7 +223,7 @@
                       <option value="Male">Male</option>
                       <option value="Female">Female</option>
                     </select>
-                    <div *ngIf="h.gender.errors">
+                    <div *ngIf="h.gender.errors &&formSubmitted">
                       <div *ngIf="h.gender.errors.required" class="text-danger">
                         gender is required
                       </div>
@@ -233,7 +233,7 @@
                   <div class="col-lg-2 col-md-2 col-sm-12 mb-1">
                     <pre class="text-success font-weight-bold">price*</pre>
                     <input formControlName="price" type="number" class="form-control" placeholder="price" >
-                    <div *ngIf="h.price.errors">
+                    <div *ngIf="h.price.errors &&formSubmitted">
                       <div *ngIf="h.price.errors.required" class="text-danger">
                         price is required
                       </div>
@@ -243,7 +243,7 @@
                     <pre class="text-success font-weight-bold">birthDate*</pre>
                     <input formControlName="birthDate" type="text" placeholder="Birth Date" class="form-control"
                             bsDatepicker/>
-                          <div *ngIf="h.birthDate.errors">
+                          <div *ngIf="h.birthDate.errors &&formSubmitted">
                             <div *ngIf="h.birthDate.errors.required" class="text-danger">
                               birthDate is required
                             </div>
@@ -254,7 +254,7 @@
                   <div class="col-lg-6 col-md-6 col-sm-12 mb-5">
                     <pre class="text-success font-weight-bold">Bio*</pre>
                     <textarea formControlName="bio" class="form-control" placeholder="add a short Bio"></textarea>
-                    <div *ngIf="h.bio.errors">
+                    <div *ngIf="h.bio.errors &&formSubmitted">
                       <div *ngIf="h.bio.errors.required" class="text-danger">
                         bio is required
                       </div>
@@ -266,7 +266,7 @@
                   <div class="col-lg-6 col-md-6 col-sm-12 mb-1 mt-4">
                     <pre class="text-success font-weight-bold">Personal Photo*</pre>
                     <input formControlName="photo" (change)="changePhoto($event)" type="file" class="file" required  accept="image/x-png,image/gif,image/jpeg"/>
-                    <div *ngIf="h.photo.errors">
+                    <div *ngIf="h.photo.errors &&formSubmitted">
                       <div *ngIf="h.photo.errors.required" class="text-danger">
                         photo is required
                       </div>
@@ -277,7 +277,7 @@
                   <div class="col-lg-6 col-md-6 col-sm-12 mb-1 ">
                     <pre class="text-success font-weight-bold">ID card*</pre>
                     <input formControlName="idFile" (change)="changeID($event)" type="file" class="file" required accept="image/x-png,image/gif,image/jpeg"/>
-                    <div *ngIf="h.idFile.errors">
+                    <div *ngIf="h.idFile.errors &&formSubmitted">
                       <div *ngIf="h.idFile.errors.required" class="text-danger">
                         ID card is required
                       </div>
@@ -286,7 +286,7 @@
                   <div class="col-lg-6 col-md-6 col-sm-12 mb-1">
                     <pre class="text-success font-weight-bold">Medical license*</pre>
                     <input formControlName="licenseFile" (change)="changeLicense($event)" type="file" class="file" required accept="image/x-png,image/gif,image/jpeg"/>
-                    <div *ngIf="h.licenseFile.errors">
+                    <div *ngIf="h.licenseFile.errors &&formSubmitted">
                       <div *ngIf="h.licenseFile.errors.required" class="text-danger">
                         license is required
                       </div>

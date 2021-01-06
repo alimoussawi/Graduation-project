@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { MapsAPILoader } from '@agm/core';
-import { faFileSignature, faUserMd,faMale,faFemale,faCity,faVenusMars,faMoneyBill,faUserNurse,faMapMarkedAlt,faHospitalUser } from '@fortawesome/free-solid-svg-icons';
+import { faFileSignature, faUserMd,faMale,faFemale,faCity,faVenusMars,faMoneyBill,faUserNurse,faMapMarkedAlt,faHospitalUser,faToolbox } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { DoctorService } from 'src/app/services/db/doctor/doctor.service';
 import { Doctor } from 'src/app/services/Doctor';
@@ -23,6 +23,7 @@ export class MainSearchPatientComponent implements OnInit {
   /*font awesome icons */
   faFileSignature = faFileSignature;
   faMapMarkedAlt=faMapMarkedAlt;
+  faToolbox=faToolbox;
   faUserNurse=faUserNurse;
   faHospitalUser=faHospitalUser;
   faUserMd = faUserMd;

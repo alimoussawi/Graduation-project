@@ -19,6 +19,7 @@ import { User } from 'src/app/services/User';
 })
 export class MainProfileDoctorComponent implements OnInit {
   pageLoading:boolean;
+  formSubmitted:boolean;
   /*font awesome icons*/
   faChevronRight = faChevronRight;
   faUserEdit = faUserEdit;
@@ -204,12 +205,14 @@ export class MainProfileDoctorComponent implements OnInit {
   }
 
    onSubmit() {
+    this.formSubmitted=true;
     if (this.EditInfoForm.invalid || !this.photoFile || !this.licenseFile || !this.idFile || !this.address||!this.code||!this.city) {
       console.log(this.EditInfoForm.status);
-      this.toastr.error("please fill all fields");
+      this.toastr.error("please fill all fields and upload correct images");
       return;
     }
     else {
+      this.formSubmitted=false;
       console.log(this.EditInfoForm.value);
       this.uploadFilesAndUpdateData(this.photoFile, this.idFile, this.licenseFile)
     }
@@ -222,6 +225,7 @@ export class MainProfileDoctorComponent implements OnInit {
       this.photoFile = file;
     }
     else {
+      this.photoFile=null;
       this.toastr.error("choose an image file")
     }
   }
@@ -232,6 +236,7 @@ export class MainProfileDoctorComponent implements OnInit {
       this.idFile = file;
     }
     else {
+      this.idFile=null;
       this.toastr.error("choose an image file")
     }
   }
@@ -242,6 +247,7 @@ export class MainProfileDoctorComponent implements OnInit {
       this.licenseFile = file;
     }
     else {
+      this.licenseFile=null;
       this.toastr.error("choose an image file")
     }
   }

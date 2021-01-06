@@ -7,7 +7,8 @@ const routes: Routes = [
   {path:'',component:MainPatientComponent,canActivate:[PatientGuard],children:[
     {path:'',loadChildren:()=>import(`./profile-patient/profile-patient.module`).then(m=>m.ProfilePatientModule)},
     {path:'search',canActivateChild:[PatientGuard],loadChildren:()=>import('./search-patient/search-patient.module').then(m=>m.SearchPatientModule)},
-    {path:'appointments',canActivateChild:[PatientGuard],loadChildren:()=>import('./appointments-patient/appointments-patient.module').then(m=>m.AppointmentsPatientModule)}
+    {path:'appointments',canActivateChild:[PatientGuard],loadChildren:()=>import('./appointments-patient/appointments-patient.module').then(m=>m.AppointmentsPatientModule)},
+    {path:'history',canActivateChild:[PatientGuard],loadChildren:()=>import('./history-patient/history-patient.module').then(m=>m.HistoryPatientModule)}
 
   ]}
 ];

@@ -142,6 +142,12 @@ export class DoctorService {
     .collection(`reservations`,ref=>ref.where(`status`,'==',`waiting`).orderBy('createdAt'));
     return doctorReservationsRef.valueChanges();
   }
+  getDoctorHistory(doctorId){
+    const doctorReservationsRef:AngularFirestoreCollection<DoctorReservation>= this.afs.collection(`doctors`)
+    .doc(`${doctorId}`)
+    .collection(`reservations`,ref=>ref.where(`status`,'==',`terminated`).orderBy('createdAt'));
+    return doctorReservationsRef.valueChanges();
+  }
   getDoctoreservationById(doctorId,reservationId){
     const doctorReservationsRef:AngularFirestoreDocument<DoctorReservation>= this.afs.collection(`doctors`)
     .doc(`${doctorId}`)

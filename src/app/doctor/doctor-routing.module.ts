@@ -7,7 +7,9 @@ const routes: Routes = [
   {path:'',component:MainDoctorComponent,canActivate:[DoctorGuard],children:[
     {path:'',loadChildren:()=>import('./profile-doctor/profile-doctor.module').then(m=>m.ProfileDoctorModule)},
     {path:'calendar',canActivateChild:[DoctorGuard],loadChildren:()=>import('./calendar-doctor/calendar-doctor.module').then(m=>m.CalendarDoctorModule)},
-    {path:'appointments',canActivateChild:[DoctorGuard],loadChildren:()=>import('./appointments-doctor/appointments-doctor.module').then(m=>m.AppointmentsDoctorModule)}
+    {path:'appointments',canActivateChild:[DoctorGuard],loadChildren:()=>import('./appointments-doctor/appointments-doctor.module').then(m=>m.AppointmentsDoctorModule)},
+    {path:'history',canActivateChild:[DoctorGuard],loadChildren:()=>import('./history-doctor/history-doctor.module').then(m=>m.HistoryDoctorModule)}
+
 
   ]}
 ];
